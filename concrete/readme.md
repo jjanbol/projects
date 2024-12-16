@@ -1,4 +1,5 @@
-![estimator](https://raw.githubusercontent.com/jjanbol/projects/refs/heads/main/concrete/neon.png)
+![estimator](https://raw.githubusercontent.com/jjanbol/projects/refs/heads/main/concrete/GUI%20screen.jpeg)
+![graph](https://raw.githubusercontent.com/jjanbol/projects/refs/heads/main/concrete/graph.jpeg)
 
 
 The project was completed in two main stages. The first stage involved exploratory data
