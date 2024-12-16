@@ -1,4 +1,4 @@
-![estimator]([https://example.com/image.png](https://raw.githubusercontent.com/jjanbol/projects/refs/heads/main/concrete/neon.png))
+![estimator](https://raw.githubusercontent.com/jjanbol/projects/refs/heads/main/concrete/neon.png)
 
 
 The project was completed in two main stages. The first stage involved exploratory data
