@@ -21,4 +21,4 @@ would provide valuable insights into how their performance metrics compare to th
 Neural Networks.
 In conclusion, developing practical software for this purpose requires significantly larger
 datasets with more diverse features to improve performance. Such advancements could
-encourage engineering companies to adopt the solution as a beta for real-world applic
+encourage engineering companies to adopt the solution as a beta for real-world applications.
