@@ -1,3 +1,6 @@
+![estimator]([https://example.com/image.png](https://raw.githubusercontent.com/jjanbol/projects/refs/heads/main/concrete/neon.png))
+
+
 The project was completed in two main stages. The first stage involved exploratory data
 engineering and analysis, as well as testing various Machine Learning (ML) models to enhance
 performance metrics. In the second stage, a graphical user interface (GUI) was developed, and
