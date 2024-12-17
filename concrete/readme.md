@@ -34,3 +34,11 @@ Neural Networks.
 In conclusion, developing practical software for this purpose requires significantly larger
 datasets with more diverse features to improve performance. Such advancements could
 encourage engineering companies to adopt the solution as a beta for real-world applications.
+
+
+| Model                         | Mean Square Loss       | Coefficient of Determination (R²) |
+|-------------------------------|------------------------|----------------------------------|
+| Neural Network Regressor      | 30.1846256256104      | 0.888295084238052                |
+| Random Forest Regressor       | 3.91175048686825      | 0.887733006688108                |
+| Gradient Boost Regressor      | 18.0410251509066      | 0.933324149139231                |
+
