@@ -1,0 +1,12 @@
+rover_id,status,task,charge_pct
+1,Operational,Material Collection,81.2
+2,Operational,Exploration,66.5
+3,Operational,Transport,53.2
+4,Operational,Material Collection,65.5
+5,Operational,Transport,66.3
+6,Needs Maintenance,Material Collection,83
+7,Operational,Exploration,66.5
+8,Operational,Transport,12
+9,Operational,Material Collection,99
+10,Needs Maintenance,Transport,66.3
+11,Operational,Material Collection,4

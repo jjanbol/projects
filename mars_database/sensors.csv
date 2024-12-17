@@ -1,0 +1,26 @@
+sensor_id,sensor_type,measurement,last_maintenance,status
+1,Temperature,22,2023-12-15 21:11:04.293263,Needs Maintenance
+2,Atmospheric,101.8,2024-11-04 21:11:04.293271,Active
+3,Temperature,24,2024-11-16 21:11:04.293272,Needs Maintenance
+4,Pressure,96.2,2024-01-06 21:11:04.293273,Active
+5,Radiation,100.0,2024-08-15 21:11:04.293274,Active
+6,Radiation,95.3,2024-07-14 21:11:04.293275,Active
+7,Pressure,104.1,2024-10-30 21:11:04.293275,Active
+8,Radiation,97.6,2024-08-12 21:11:04.293276,Active
+9,co2_level,0.0484,2024-10-19 21:11:04.293277,Active
+10,co2_level,0.0388,2024-05-29 21:11:04.293278,Needs Maintenance
+11,Pressure,99.4,2024-07-20 21:11:04.293279,Active
+12,Structural,96.2,2024-04-21 21:11:04.293280,Active
+13,Pressure,100.0,2024-01-19 21:11:04.293281,Active
+14,Pressure,95.3,2024-06-06 21:11:04.293281,Active
+15,co2_level,0.0536,2024-09-17 21:11:04.293282,Needs Maintenance
+16,co2_level,0.043,2024-06-03 21:11:04.293283,Active
+17,Structural,104.1,2024-06-11 21:11:04.293284,Needs Maintenance
+18,Pressure,97.6,2024-08-24 21:11:04.293285,Active
+19,Pressure,97.6,2024-01-01 21:11:04.293286,Active
+20,co2_level,0.0437,2024-07-26 21:11:04.293286,Active
+21,Temperature,20,2024-07-26 21:11:04.293286,Active
+22,Temperature,18,2024-07-26 23:11:04.293286,Active
+23,Temperature,17,2024-06-03 21:11:04.293283,Needs Maintenance
+24,Temperature,20,2024-07-20 21:11:04.293279,Needs Maintenance
+25,Temperature,21,2024-08-12 21:11:04.293276,Active
