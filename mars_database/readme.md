@@ -13,7 +13,7 @@ Monitoring Mars climate to identify extreme weather events that could threaten t
 equally vital.
 
 
-The database system will support colony operations by focusing on:
+The synthetic database system will support colony operations by focusing on:
 
 
 • Environmental Monitoring
