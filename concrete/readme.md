@@ -36,6 +36,8 @@ datasets with more diverse features to improve performance. Such advancements co
 encourage engineering companies to adopt the solution as a beta for real-world applications.
 
 
+Overall result table:
+
 | Model                         | Mean Square Loss       | Coefficient of Determination (R²) |
 |-------------------------------|------------------------|----------------------------------|
 | Neural Network Regressor      | 30.1846256256104      | 0.888295084238052                |
