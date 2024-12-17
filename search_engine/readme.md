@@ -7,7 +7,6 @@ This project simulates search engine optimization strategies using PageRank to a
 Key Features:
 Initial Analysis:
 Utilized the PageRank algorithm to compute the baseline ranking of Yahoo's homepage.
-Visualized distribution trends and ranked nodes within the graph.
 
 
 Backlinking Strategies:
@@ -33,4 +32,3 @@ Simulated linking back to collaborators to further improve Yahoo’s ranking, ul
 Tools and Libraries:
 Scikit-Network: Implemented PageRank for ranking calculations.
 SciPy and NumPy: Used for sparse matrix operations and graph representation.
-Matplotlib: Visualized distribution trends and ranking impacts.
