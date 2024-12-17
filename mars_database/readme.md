@@ -1,3 +1,4 @@
+![estimator](https://raw.githubusercontent.com/jjanbol/projects/refs/heads/main/mars_database/mars%20copy.png)
 
 For a sustainable and livable colony on Mars, it is essential to automate operations and
 minimize human interaction with the harsh environment. Ensuring the colony's safety and
