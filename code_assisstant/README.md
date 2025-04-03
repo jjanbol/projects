@@ -132,7 +132,7 @@ it takes both wiki agent and chroma db as a tool and output based on them
 _____________________________________________________________________________________________________________________
 
 # 5. How to Run and environment settings
-easiest way to use the application: http://35.192.181.191:8080/ then go to 6
+easiest way to use the application: http://35.192.181.191:8080/ then go to 6 (NO LONGER SUPPORTED)
 _____________________________________________________________________________________________________________________
 1. Before running please make sure to have the following packages installed in the environment:
    streamlit, vertexai, wikipedia, nltk, langchain_google_vertexai, langchain_core, wikipediaapi, chromadb, langchain-text-splitters, langchain, langchain-groq.
