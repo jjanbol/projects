@@ -1,0 +1,2793 @@
+{
+  "nodes": [
+    {
+      "id": "conversationalRetrievalQAChain_0",
+      "position": {
+        "x": 2498.694477745584,
+        "y": 326.44265529842386
+      },
+      "type": "customNode",
+      "data": {
+        "id": "conversationalRetrievalQAChain_0",
+        "label": "Conversational Retrieval QA Chain",
+        "version": 3,
+        "name": "conversationalRetrievalQAChain",
+        "type": "ConversationalRetrievalQAChain",
+        "baseClasses": [
+          "ConversationalRetrievalQAChain",
+          "BaseChain",
+          "Runnable"
+        ],
+        "category": "Chains",
+        "description": "Document QA - built on RetrievalQAChain to provide a chat history component",
+        "inputParams": [
+          {
+            "label": "Return Source Documents",
+            "name": "returnSourceDocuments",
+            "type": "boolean",
+            "optional": true,
+            "id": "conversationalRetrievalQAChain_0-input-returnSourceDocuments-boolean"
+          },
+          {
+            "label": "Rephrase Prompt",
+            "name": "rephrasePrompt",
+            "type": "string",
+            "description": "Using previous chat history, rephrase question into a standalone question",
+            "warning": "Prompt must include input variables: {chat_history} and {question}",
+            "rows": 4,
+            "additionalParams": true,
+            "optional": true,
+            "default": "Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question.\n\nChat History:\n{chat_history}\nFollow Up Input: {question}\nStandalone Question:",
+            "id": "conversationalRetrievalQAChain_0-input-rephrasePrompt-string"
+          },
+          {
+            "label": "Response Prompt",
+            "name": "responsePrompt",
+            "type": "string",
+            "description": "Taking the rephrased question, search for answer from the provided context",
+            "warning": "Prompt must include input variable: {context}",
+            "rows": 4,
+            "additionalParams": true,
+            "optional": true,
+            "default": "I want you to act as a document that I am having a conversation with. Your name is \"AI Assistant\". Using the provided context, answer the user's question to the best of your ability using the resources provided.\nIf there is nothing in the context relevant to the question at hand, just say \"Hmm, I'm not sure\" and stop after that. Refuse to answer any question not about the info. Never break character.\n------------\n{context}\n------------\nREMEMBER: If there is no relevant information within the context, just say \"Hmm, I'm not sure\". Don't try to make up an answer. Never break character.",
+            "id": "conversationalRetrievalQAChain_0-input-responsePrompt-string"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Chat Model",
+            "name": "model",
+            "type": "BaseChatModel",
+            "id": "conversationalRetrievalQAChain_0-input-model-BaseChatModel"
+          },
+          {
+            "label": "Vector Store Retriever",
+            "name": "vectorStoreRetriever",
+            "type": "BaseRetriever",
+            "id": "conversationalRetrievalQAChain_0-input-vectorStoreRetriever-BaseRetriever"
+          },
+          {
+            "label": "Memory",
+            "name": "memory",
+            "type": "BaseMemory",
+            "optional": true,
+            "description": "If left empty, a default BufferMemory will be used",
+            "id": "conversationalRetrievalQAChain_0-input-memory-BaseMemory"
+          },
+          {
+            "label": "Input Moderation",
+            "description": "Detect text that could generate harmful output and prevent it from being sent to the language model",
+            "name": "inputModeration",
+            "type": "Moderation",
+            "optional": true,
+            "list": true,
+            "id": "conversationalRetrievalQAChain_0-input-inputModeration-Moderation"
+          }
+        ],
+        "inputs": {
+          "model": "{{chatGoogleVertexAI_0.data.instance}}",
+          "vectorStoreRetriever": "{{chroma_0.data.instance}}",
+          "memory": "{{bufferMemory_0.data.instance}}",
+          "returnSourceDocuments": "",
+          "rephrasePrompt": "Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question.\n\nChat History:\n{chat_history}\nFollow Up Input: {question}\nStandalone Question:",
+          "responsePrompt": "I want you to act as a document that I am having a conversation with. Your name is \"AI Assistant\". Using the provided context, answer the user's question to the best of your ability using the resources provided.\nIf there is nothing in the context relevant to the question at hand, just say \"Hmm, I'm not sure\" and stop after that. Refuse to answer any question not about the info. Never break character.\n------------\n{context}\n------------\nREMEMBER: If there is no relevant information within the context, just say \"Hmm, I'm not sure\". Don't try to make up an answer. Never break character.",
+          "inputModeration": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "conversationalRetrievalQAChain_0-output-conversationalRetrievalQAChain-ConversationalRetrievalQAChain|BaseChain|Runnable",
+            "name": "conversationalRetrievalQAChain",
+            "label": "ConversationalRetrievalQAChain",
+            "description": "Document QA - built on RetrievalQAChain to provide a chat history component",
+            "type": "ConversationalRetrievalQAChain | BaseChain | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 532,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 2498.694477745584,
+        "y": 326.44265529842386
+      },
+      "dragging": false
+    },
+    {
+      "id": "bufferMemory_0",
+      "position": {
+        "x": 1626.415224300409,
+        "y": 1068.5016964216338
+      },
+      "type": "customNode",
+      "data": {
+        "id": "bufferMemory_0",
+        "label": "Buffer Memory",
+        "version": 2,
+        "name": "bufferMemory",
+        "type": "BufferMemory",
+        "baseClasses": [
+          "BufferMemory",
+          "BaseChatMemory",
+          "BaseMemory"
+        ],
+        "category": "Memory",
+        "description": "Retrieve chat messages stored in database",
+        "inputParams": [
+          {
+            "label": "Session Id",
+            "name": "sessionId",
+            "type": "string",
+            "description": "If not specified, a random id will be used. Learn <a target=\"_blank\" href=\"https://docs.flowiseai.com/memory#ui-and-embedded-chat\">more</a>",
+            "default": "",
+            "additionalParams": true,
+            "optional": true,
+            "id": "bufferMemory_0-input-sessionId-string"
+          },
+          {
+            "label": "Memory Key",
+            "name": "memoryKey",
+            "type": "string",
+            "default": "chat_history",
+            "additionalParams": true,
+            "id": "bufferMemory_0-input-memoryKey-string"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "sessionId": "",
+          "memoryKey": "chat_history"
+        },
+        "outputAnchors": [
+          {
+            "id": "bufferMemory_0-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory",
+            "name": "bufferMemory",
+            "label": "BufferMemory",
+            "description": "Retrieve chat messages stored in database",
+            "type": "BufferMemory | BaseChatMemory | BaseMemory"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 253,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1626.415224300409,
+        "y": 1068.5016964216338
+      },
+      "dragging": false
+    },
+    {
+      "id": "chatGoogleVertexAI_0",
+      "position": {
+        "x": 1623.6679501968797,
+        "y": 363.0589818636387
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatGoogleVertexAI_0",
+        "label": "ChatGoogleVertexAI",
+        "version": 5.1,
+        "name": "chatGoogleVertexAI",
+        "type": "ChatGoogleVertexAI",
+        "baseClasses": [
+          "ChatGoogleVertexAI",
+          "ChatVertexAI",
+          "ChatGoogle",
+          "ChatGoogleBase",
+          "BaseChatModel",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "Chat Models",
+        "description": "Wrapper around VertexAI large language models that use the Chat endpoint",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "googleVertexAuth"
+            ],
+            "optional": true,
+            "description": "Google Vertex AI credential. If you are using a GCP service like Cloud Run, or if you have installed default credentials on your local machine, you do not need to set this credential.",
+            "id": "chatGoogleVertexAI_0-input-credential-credential"
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "id": "chatGoogleVertexAI_0-input-modelName-asyncOptions"
+          },
+          {
+            "label": "Custom Model Name",
+            "name": "customModelName",
+            "type": "string",
+            "placeholder": "gemini-1.5-pro-exp-0801",
+            "description": "Custom model name to use. If provided, it will override the model selected",
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_0-input-customModelName-string"
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "chatGoogleVertexAI_0-input-temperature-number"
+          },
+          {
+            "label": "Allow Image Uploads",
+            "name": "allowImageUploads",
+            "type": "boolean",
+            "description": "Allow image input. Refer to the <a href=\"https://docs.flowiseai.com/using-flowise/uploads#image\" target=\"_blank\">docs</a> for more details.",
+            "default": false,
+            "optional": true,
+            "id": "chatGoogleVertexAI_0-input-allowImageUploads-boolean"
+          },
+          {
+            "label": "Streaming",
+            "name": "streaming",
+            "type": "boolean",
+            "default": true,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_0-input-streaming-boolean"
+          },
+          {
+            "label": "Max Output Tokens",
+            "name": "maxOutputTokens",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_0-input-maxOutputTokens-number"
+          },
+          {
+            "label": "Top Probability",
+            "name": "topP",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_0-input-topP-number"
+          },
+          {
+            "label": "Top Next Highest Probability Tokens",
+            "name": "topK",
+            "type": "number",
+            "description": "Decode using top-k sampling: consider the set of top_k most probable tokens. Must be positive",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_0-input-topK-number"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "chatGoogleVertexAI_0-input-cache-BaseCache"
+          }
+        ],
+        "inputs": {
+          "cache": "",
+          "modelName": "gemini-1.5-pro-001",
+          "customModelName": "",
+          "temperature": 0.9,
+          "allowImageUploads": "",
+          "streaming": true,
+          "maxOutputTokens": "",
+          "topP": "",
+          "topK": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "chatGoogleVertexAI_0-output-chatGoogleVertexAI-ChatGoogleVertexAI|ChatVertexAI|ChatGoogle|ChatGoogleBase|BaseChatModel|BaseLanguageModel|Runnable",
+            "name": "chatGoogleVertexAI",
+            "label": "ChatGoogleVertexAI",
+            "description": "Wrapper around VertexAI large language models that use the Chat endpoint",
+            "type": "ChatGoogleVertexAI | ChatVertexAI | ChatGoogle | ChatGoogleBase | BaseChatModel | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 671,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1623.6679501968797,
+        "y": 363.0589818636387
+      },
+      "dragging": false
+    },
+    {
+      "id": "chroma_0",
+      "position": {
+        "x": 1246.9323800430773,
+        "y": 342.6588964492065
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chroma_0",
+        "label": "Chroma",
+        "version": 2,
+        "name": "chroma",
+        "type": "Chroma",
+        "baseClasses": [
+          "Chroma",
+          "VectorStoreRetriever",
+          "BaseRetriever"
+        ],
+        "category": "Vector Stores",
+        "description": "Upsert embedded data and perform similarity search upon query using Chroma, an open-source embedding database",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "description": "Only needed if you have chroma on cloud services with X-Api-key",
+            "optional": true,
+            "credentialNames": [
+              "chromaApi"
+            ],
+            "id": "chroma_0-input-credential-credential"
+          },
+          {
+            "label": "Collection Name",
+            "name": "collectionName",
+            "type": "string",
+            "id": "chroma_0-input-collectionName-string"
+          },
+          {
+            "label": "Chroma URL",
+            "name": "chromaURL",
+            "type": "string",
+            "optional": true,
+            "id": "chroma_0-input-chromaURL-string"
+          },
+          {
+            "label": "Chroma Metadata Filter",
+            "name": "chromaMetadataFilter",
+            "type": "json",
+            "optional": true,
+            "additionalParams": true,
+            "id": "chroma_0-input-chromaMetadataFilter-json"
+          },
+          {
+            "label": "Top K",
+            "name": "topK",
+            "description": "Number of top results to fetch. Default to 4",
+            "placeholder": "4",
+            "type": "number",
+            "additionalParams": true,
+            "optional": true,
+            "id": "chroma_0-input-topK-number"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Document",
+            "name": "document",
+            "type": "Document",
+            "list": true,
+            "optional": true,
+            "id": "chroma_0-input-document-Document"
+          },
+          {
+            "label": "Embeddings",
+            "name": "embeddings",
+            "type": "Embeddings",
+            "id": "chroma_0-input-embeddings-Embeddings"
+          },
+          {
+            "label": "Record Manager",
+            "name": "recordManager",
+            "type": "RecordManager",
+            "description": "Keep track of the record to prevent duplication",
+            "optional": true,
+            "id": "chroma_0-input-recordManager-RecordManager"
+          }
+        ],
+        "inputs": {
+          "document": "",
+          "embeddings": "{{googlevertexaiEmbeddings_0.data.instance}}",
+          "recordManager": "",
+          "collectionName": "code_langs",
+          "chromaURL": "",
+          "chromaMetadataFilter": "",
+          "topK": ""
+        },
+        "outputAnchors": [
+          {
+            "name": "output",
+            "label": "Output",
+            "type": "options",
+            "description": "",
+            "options": [
+              {
+                "id": "chroma_0-output-retriever-Chroma|VectorStoreRetriever|BaseRetriever",
+                "name": "retriever",
+                "label": "Chroma Retriever",
+                "description": "",
+                "type": "Chroma | VectorStoreRetriever | BaseRetriever"
+              },
+              {
+                "id": "chroma_0-output-vectorStore-Chroma|VectorStore",
+                "name": "vectorStore",
+                "label": "Chroma Vector Store",
+                "description": "",
+                "type": "Chroma | VectorStore"
+              }
+            ],
+            "default": "retriever"
+          }
+        ],
+        "outputs": {
+          "output": "retriever"
+        },
+        "selected": false
+      },
+      "width": 300,
+      "height": 705,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1246.9323800430773,
+        "y": 342.6588964492065
+      },
+      "dragging": false
+    },
+    {
+      "id": "googlevertexaiEmbeddings_0",
+      "position": {
+        "x": 1256.0883310299619,
+        "y": 1075.3007023404052
+      },
+      "type": "customNode",
+      "data": {
+        "id": "googlevertexaiEmbeddings_0",
+        "label": "GoogleVertexAI Embeddings",
+        "version": 2,
+        "name": "googlevertexaiEmbeddings",
+        "type": "GoogleVertexAIEmbeddings",
+        "baseClasses": [
+          "GoogleVertexAIEmbeddings",
+          "GoogleEmbeddings",
+          "BaseGoogleEmbeddings",
+          "Embeddings"
+        ],
+        "category": "Embeddings",
+        "description": "Google vertexAI API to generate embeddings for a given text",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "googleVertexAuth"
+            ],
+            "optional": true,
+            "description": "Google Vertex AI credential. If you are using a GCP service like Cloud Run, or if you have installed default credentials on your local machine, you do not need to set this credential.",
+            "id": "googlevertexaiEmbeddings_0-input-credential-credential"
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "default": "textembedding-gecko@001",
+            "id": "googlevertexaiEmbeddings_0-input-modelName-asyncOptions"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "modelName": "text-embedding-004"
+        },
+        "outputAnchors": [
+          {
+            "id": "googlevertexaiEmbeddings_0-output-googlevertexaiEmbeddings-GoogleVertexAIEmbeddings|GoogleEmbeddings|BaseGoogleEmbeddings|Embeddings",
+            "name": "googlevertexaiEmbeddings",
+            "label": "GoogleVertexAIEmbeddings",
+            "description": "Google vertexAI API to generate embeddings for a given text",
+            "type": "GoogleVertexAIEmbeddings | GoogleEmbeddings | BaseGoogleEmbeddings | Embeddings"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 372,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1256.0883310299619,
+        "y": 1075.3007023404052
+      },
+      "dragging": false
+    },
+    {
+      "id": "chainTool_0",
+      "position": {
+        "x": 2976.3073910943785,
+        "y": 265.18569155454406
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chainTool_0",
+        "label": "Chain Tool",
+        "version": 1,
+        "name": "chainTool",
+        "type": "ChainTool",
+        "baseClasses": [
+          "ChainTool",
+          "DynamicTool",
+          "Tool",
+          "StructuredTool",
+          "Runnable"
+        ],
+        "category": "Tools",
+        "description": "Use a chain as allowed tool for agent",
+        "inputParams": [
+          {
+            "label": "Chain Name",
+            "name": "name",
+            "type": "string",
+            "placeholder": "state-of-union-qa",
+            "id": "chainTool_0-input-name-string"
+          },
+          {
+            "label": "Chain Description",
+            "name": "description",
+            "type": "string",
+            "rows": 3,
+            "placeholder": "State of the Union QA - useful for when you need to ask questions about the most recent state of the union address.",
+            "id": "chainTool_0-input-description-string"
+          },
+          {
+            "label": "Return Direct",
+            "name": "returnDirect",
+            "type": "boolean",
+            "optional": true,
+            "id": "chainTool_0-input-returnDirect-boolean"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Base Chain",
+            "name": "baseChain",
+            "type": "BaseChain",
+            "id": "chainTool_0-input-baseChain-BaseChain"
+          }
+        ],
+        "inputs": {
+          "name": "rag-data",
+          "description": "Retrive selected programming language snnipt from the user query",
+          "returnDirect": "",
+          "baseChain": "{{conversationalRetrievalQAChain_0.data.instance}}"
+        },
+        "outputAnchors": [
+          {
+            "id": "chainTool_0-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable",
+            "name": "chainTool",
+            "label": "ChainTool",
+            "description": "Use a chain as allowed tool for agent",
+            "type": "ChainTool | DynamicTool | Tool | StructuredTool | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 604,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 2976.3073910943785,
+        "y": 265.18569155454406
+      },
+      "dragging": false
+    },
+    {
+      "id": "toolAgent_0",
+      "position": {
+        "x": 4211.892842080362,
+        "y": 156.46945580187946
+      },
+      "type": "customNode",
+      "data": {
+        "id": "toolAgent_0",
+        "label": "Tool Agent",
+        "version": 2,
+        "name": "toolAgent",
+        "type": "AgentExecutor",
+        "baseClasses": [
+          "AgentExecutor",
+          "BaseChain",
+          "Runnable"
+        ],
+        "category": "Agents",
+        "description": "Agent that uses Function Calling to pick the tools and args to call",
+        "inputParams": [
+          {
+            "label": "System Message",
+            "name": "systemMessage",
+            "type": "string",
+            "default": "You are a helpful AI assistant.",
+            "description": "If Chat Prompt Template is provided, this will be ignored",
+            "rows": 4,
+            "optional": true,
+            "additionalParams": true,
+            "id": "toolAgent_0-input-systemMessage-string"
+          },
+          {
+            "label": "Max Iterations",
+            "name": "maxIterations",
+            "type": "number",
+            "optional": true,
+            "additionalParams": true,
+            "id": "toolAgent_0-input-maxIterations-number"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Tools",
+            "name": "tools",
+            "type": "Tool",
+            "list": true,
+            "id": "toolAgent_0-input-tools-Tool"
+          },
+          {
+            "label": "Memory",
+            "name": "memory",
+            "type": "BaseChatMemory",
+            "id": "toolAgent_0-input-memory-BaseChatMemory"
+          },
+          {
+            "label": "Tool Calling Chat Model",
+            "name": "model",
+            "type": "BaseChatModel",
+            "description": "Only compatible with models that are capable of function calling: ChatOpenAI, ChatMistral, ChatAnthropic, ChatGoogleGenerativeAI, ChatVertexAI, GroqChat",
+            "id": "toolAgent_0-input-model-BaseChatModel"
+          },
+          {
+            "label": "Chat Prompt Template",
+            "name": "chatPromptTemplate",
+            "type": "ChatPromptTemplate",
+            "description": "Override existing prompt with Chat Prompt Template. Human Message must includes {input} variable",
+            "optional": true,
+            "id": "toolAgent_0-input-chatPromptTemplate-ChatPromptTemplate"
+          },
+          {
+            "label": "Input Moderation",
+            "description": "Detect text that could generate harmful output and prevent it from being sent to the language model",
+            "name": "inputModeration",
+            "type": "Moderation",
+            "optional": true,
+            "list": true,
+            "id": "toolAgent_0-input-inputModeration-Moderation"
+          }
+        ],
+        "inputs": {
+          "tools": [
+            "{{chainTool_0.data.instance}}",
+            "{{chainTool_1.data.instance}}"
+          ],
+          "memory": "{{bufferMemory_1.data.instance}}",
+          "model": "{{chatGoogleVertexAI_1.data.instance}}",
+          "chatPromptTemplate": "{{chatPromptTemplate_0.data.instance}}",
+          "systemMessage": "You are a helpful AI assistant.",
+          "inputModeration": "",
+          "maxIterations": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "toolAgent_0-output-toolAgent-AgentExecutor|BaseChain|Runnable",
+            "name": "toolAgent",
+            "label": "AgentExecutor",
+            "description": "Agent that uses Function Calling to pick the tools and args to call",
+            "type": "AgentExecutor | BaseChain | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 486,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 4211.892842080362,
+        "y": 156.46945580187946
+      },
+      "dragging": false
+    },
+    {
+      "id": "bufferMemory_1",
+      "position": {
+        "x": 3740.440963663257,
+        "y": 1664.8665710729708
+      },
+      "type": "customNode",
+      "data": {
+        "id": "bufferMemory_1",
+        "label": "Buffer Memory",
+        "version": 2,
+        "name": "bufferMemory",
+        "type": "BufferMemory",
+        "baseClasses": [
+          "BufferMemory",
+          "BaseChatMemory",
+          "BaseMemory"
+        ],
+        "category": "Memory",
+        "description": "Retrieve chat messages stored in database",
+        "inputParams": [
+          {
+            "label": "Session Id",
+            "name": "sessionId",
+            "type": "string",
+            "description": "If not specified, a random id will be used. Learn <a target=\"_blank\" href=\"https://docs.flowiseai.com/memory#ui-and-embedded-chat\">more</a>",
+            "default": "",
+            "additionalParams": true,
+            "optional": true,
+            "id": "bufferMemory_1-input-sessionId-string"
+          },
+          {
+            "label": "Memory Key",
+            "name": "memoryKey",
+            "type": "string",
+            "default": "chat_history",
+            "additionalParams": true,
+            "id": "bufferMemory_1-input-memoryKey-string"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "sessionId": "",
+          "memoryKey": "chat_history"
+        },
+        "outputAnchors": [
+          {
+            "id": "bufferMemory_1-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory",
+            "name": "bufferMemory",
+            "label": "BufferMemory",
+            "description": "Retrieve chat messages stored in database",
+            "type": "BufferMemory | BaseChatMemory | BaseMemory"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 253,
+      "positionAbsolute": {
+        "x": 3740.440963663257,
+        "y": 1664.8665710729708
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "chatGoogleVertexAI_1",
+      "position": {
+        "x": 3733.1286889498383,
+        "y": 927.1005374733284
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatGoogleVertexAI_1",
+        "label": "ChatGoogleVertexAI",
+        "version": 5.1,
+        "name": "chatGoogleVertexAI",
+        "type": "ChatGoogleVertexAI",
+        "baseClasses": [
+          "ChatGoogleVertexAI",
+          "ChatVertexAI",
+          "ChatGoogle",
+          "ChatGoogleBase",
+          "BaseChatModel",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "Chat Models",
+        "description": "Wrapper around VertexAI large language models that use the Chat endpoint",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "googleVertexAuth"
+            ],
+            "optional": true,
+            "description": "Google Vertex AI credential. If you are using a GCP service like Cloud Run, or if you have installed default credentials on your local machine, you do not need to set this credential.",
+            "id": "chatGoogleVertexAI_1-input-credential-credential"
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "id": "chatGoogleVertexAI_1-input-modelName-asyncOptions"
+          },
+          {
+            "label": "Custom Model Name",
+            "name": "customModelName",
+            "type": "string",
+            "placeholder": "gemini-1.5-pro-exp-0801",
+            "description": "Custom model name to use. If provided, it will override the model selected",
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_1-input-customModelName-string"
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "chatGoogleVertexAI_1-input-temperature-number"
+          },
+          {
+            "label": "Allow Image Uploads",
+            "name": "allowImageUploads",
+            "type": "boolean",
+            "description": "Allow image input. Refer to the <a href=\"https://docs.flowiseai.com/using-flowise/uploads#image\" target=\"_blank\">docs</a> for more details.",
+            "default": false,
+            "optional": true,
+            "id": "chatGoogleVertexAI_1-input-allowImageUploads-boolean"
+          },
+          {
+            "label": "Streaming",
+            "name": "streaming",
+            "type": "boolean",
+            "default": true,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_1-input-streaming-boolean"
+          },
+          {
+            "label": "Max Output Tokens",
+            "name": "maxOutputTokens",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_1-input-maxOutputTokens-number"
+          },
+          {
+            "label": "Top Probability",
+            "name": "topP",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_1-input-topP-number"
+          },
+          {
+            "label": "Top Next Highest Probability Tokens",
+            "name": "topK",
+            "type": "number",
+            "description": "Decode using top-k sampling: consider the set of top_k most probable tokens. Must be positive",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_1-input-topK-number"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "chatGoogleVertexAI_1-input-cache-BaseCache"
+          }
+        ],
+        "inputs": {
+          "cache": "",
+          "modelName": "gemini-1.5-pro-001",
+          "customModelName": "",
+          "temperature": 0.9,
+          "allowImageUploads": "",
+          "streaming": true,
+          "maxOutputTokens": "",
+          "topP": "",
+          "topK": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "chatGoogleVertexAI_1-output-chatGoogleVertexAI-ChatGoogleVertexAI|ChatVertexAI|ChatGoogle|ChatGoogleBase|BaseChatModel|BaseLanguageModel|Runnable",
+            "name": "chatGoogleVertexAI",
+            "label": "ChatGoogleVertexAI",
+            "description": "Wrapper around VertexAI large language models that use the Chat endpoint",
+            "type": "ChatGoogleVertexAI | ChatVertexAI | ChatGoogle | ChatGoogleBase | BaseChatModel | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 671,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 3733.1286889498383,
+        "y": 927.1005374733284
+      },
+      "dragging": false
+    },
+    {
+      "id": "chatPromptTemplate_0",
+      "position": {
+        "x": 3373.5665582096008,
+        "y": 1175.101178390434
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatPromptTemplate_0",
+        "label": "Chat Prompt Template",
+        "version": 2,
+        "name": "chatPromptTemplate",
+        "type": "ChatPromptTemplate",
+        "baseClasses": [
+          "ChatPromptTemplate",
+          "BaseChatPromptTemplate",
+          "BasePromptTemplate",
+          "Runnable"
+        ],
+        "category": "Prompts",
+        "description": "Schema to represent a chat prompt",
+        "inputParams": [
+          {
+            "label": "System Message",
+            "name": "systemMessagePrompt",
+            "type": "string",
+            "rows": 4,
+            "placeholder": "You are a helpful assistant that translates {input_language} to {output_language}.",
+            "id": "chatPromptTemplate_0-input-systemMessagePrompt-string"
+          },
+          {
+            "label": "Human Message",
+            "name": "humanMessagePrompt",
+            "description": "This prompt will be added at the end of the messages as human message",
+            "type": "string",
+            "rows": 4,
+            "placeholder": "{text}",
+            "id": "chatPromptTemplate_0-input-humanMessagePrompt-string"
+          },
+          {
+            "label": "Format Prompt Values",
+            "name": "promptValues",
+            "type": "json",
+            "optional": true,
+            "acceptVariable": true,
+            "list": true,
+            "id": "chatPromptTemplate_0-input-promptValues-json"
+          },
+          {
+            "label": "Messages History",
+            "name": "messageHistory",
+            "description": "Add messages after System Message. This is useful when you want to provide few shot examples",
+            "type": "tabs",
+            "tabIdentifier": "selectedMessagesTab",
+            "additionalParams": true,
+            "default": "messageHistoryCode",
+            "tabs": [
+              {
+                "label": "Add Messages (Code)",
+                "name": "messageHistoryCode",
+                "type": "code",
+                "hideCodeExecute": true,
+                "codeExample": "const { AIMessage, HumanMessage, ToolMessage } = require('@langchain/core/messages');\n\nreturn [\n    new HumanMessage(\"What is 333382 🦜 1932?\"),\n    new AIMessage({\n        content: \"\",\n        tool_calls: [\n        {\n            id: \"12345\",\n            name: \"calulator\",\n            args: {\n                number1: 333382,\n                number2: 1932,\n                operation: \"divide\",\n            },\n        },\n        ],\n    }),\n    new ToolMessage({\n        tool_call_id: \"12345\",\n        content: \"The answer is 172.558.\",\n    }),\n    new AIMessage(\"The answer is 172.558.\"),\n]",
+                "optional": true,
+                "additionalParams": true
+              }
+            ],
+            "id": "chatPromptTemplate_0-input-messageHistory-tabs"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "systemMessagePrompt": "            '''You are a helpful and professional AI coding assistant for programmers. \n                 Read this code_snippet {code_snippet} and choose one snipped that is most relevant to\n                 {language} and {query} from user. Explain how it is working to the user in 4\n                 sentences. Make sure to read the {meta_data} and explain the metadata as it relates to\n                 the code snippet and provide the url. \n                 Follow this template and do not digress from this:\n                 1. Code snippet in pretty print\n                 2. Explanation\n                 3. Metadata explanation\n                 4. Additional explanation if {code_snippet} doesn't address the {query}\n                 5. Provide documentation link for {language}\n                 6. Provide documentation link for that might we helpful'''",
+          "humanMessagePrompt": "Please analyze the following code snippet and metadata to help me understand how it works. The code is written in {language}, and I need it to address {query}. Follow the template below:\n\nCode snippet in pretty print\n\nExplanation of how the code works (in 4 sentences)\n\nMetadata explanation and how it relates to the code snippet\n\nAdditional explanation if the code snippet doesn't fully address the query\n\nDocumentation link for the programming language\n\nAdditional documentation link that might be helpful\n\nHere is the code snippet and metadata:\n\nCode snippet: {code_snippet}\n\nMetadata: {meta_data}",
+          "promptValues": "",
+          "messageHistory": "messageHistoryCode"
+        },
+        "outputAnchors": [
+          {
+            "id": "chatPromptTemplate_0-output-chatPromptTemplate-ChatPromptTemplate|BaseChatPromptTemplate|BasePromptTemplate|Runnable",
+            "name": "chatPromptTemplate",
+            "label": "ChatPromptTemplate",
+            "description": "Schema to represent a chat prompt",
+            "type": "ChatPromptTemplate | BaseChatPromptTemplate | BasePromptTemplate | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 743,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 3373.5665582096008,
+        "y": 1175.101178390434
+      },
+      "dragging": false
+    },
+    {
+      "id": "chainTool_1",
+      "position": {
+        "x": 3563.29975246062,
+        "y": -531.165096200402
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chainTool_1",
+        "label": "Chain Tool",
+        "version": 1,
+        "name": "chainTool",
+        "type": "ChainTool",
+        "baseClasses": [
+          "ChainTool",
+          "DynamicTool",
+          "Tool",
+          "StructuredTool",
+          "Runnable"
+        ],
+        "category": "Tools",
+        "description": "Use a chain as allowed tool for agent",
+        "inputParams": [
+          {
+            "label": "Chain Name",
+            "name": "name",
+            "type": "string",
+            "placeholder": "state-of-union-qa",
+            "id": "chainTool_1-input-name-string"
+          },
+          {
+            "label": "Chain Description",
+            "name": "description",
+            "type": "string",
+            "rows": 3,
+            "placeholder": "State of the Union QA - useful for when you need to ask questions about the most recent state of the union address.",
+            "id": "chainTool_1-input-description-string"
+          },
+          {
+            "label": "Return Direct",
+            "name": "returnDirect",
+            "type": "boolean",
+            "optional": true,
+            "id": "chainTool_1-input-returnDirect-boolean"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Base Chain",
+            "name": "baseChain",
+            "type": "BaseChain",
+            "id": "chainTool_1-input-baseChain-BaseChain"
+          }
+        ],
+        "inputs": {
+          "name": "",
+          "description": "",
+          "returnDirect": "",
+          "baseChain": "{{toolAgent_1.data.instance}}"
+        },
+        "outputAnchors": [
+          {
+            "id": "chainTool_1-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable",
+            "name": "chainTool",
+            "label": "ChainTool",
+            "description": "Use a chain as allowed tool for agent",
+            "type": "ChainTool | DynamicTool | Tool | StructuredTool | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 604,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 3563.29975246062,
+        "y": -531.165096200402
+      },
+      "dragging": false
+    },
+    {
+      "id": "toolAgent_1",
+      "position": {
+        "x": 2966.324692205314,
+        "y": -966.419670310804
+      },
+      "type": "customNode",
+      "data": {
+        "id": "toolAgent_1",
+        "label": "Tool Agent",
+        "version": 2,
+        "name": "toolAgent",
+        "type": "AgentExecutor",
+        "baseClasses": [
+          "AgentExecutor",
+          "BaseChain",
+          "Runnable"
+        ],
+        "category": "Agents",
+        "description": "Agent that uses Function Calling to pick the tools and args to call",
+        "inputParams": [
+          {
+            "label": "System Message",
+            "name": "systemMessage",
+            "type": "string",
+            "default": "You are a helpful AI assistant.",
+            "description": "If Chat Prompt Template is provided, this will be ignored",
+            "rows": 4,
+            "optional": true,
+            "additionalParams": true,
+            "id": "toolAgent_1-input-systemMessage-string"
+          },
+          {
+            "label": "Max Iterations",
+            "name": "maxIterations",
+            "type": "number",
+            "optional": true,
+            "additionalParams": true,
+            "id": "toolAgent_1-input-maxIterations-number"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Tools",
+            "name": "tools",
+            "type": "Tool",
+            "list": true,
+            "id": "toolAgent_1-input-tools-Tool"
+          },
+          {
+            "label": "Memory",
+            "name": "memory",
+            "type": "BaseChatMemory",
+            "id": "toolAgent_1-input-memory-BaseChatMemory"
+          },
+          {
+            "label": "Tool Calling Chat Model",
+            "name": "model",
+            "type": "BaseChatModel",
+            "description": "Only compatible with models that are capable of function calling: ChatOpenAI, ChatMistral, ChatAnthropic, ChatGoogleGenerativeAI, ChatVertexAI, GroqChat",
+            "id": "toolAgent_1-input-model-BaseChatModel"
+          },
+          {
+            "label": "Chat Prompt Template",
+            "name": "chatPromptTemplate",
+            "type": "ChatPromptTemplate",
+            "description": "Override existing prompt with Chat Prompt Template. Human Message must includes {input} variable",
+            "optional": true,
+            "id": "toolAgent_1-input-chatPromptTemplate-ChatPromptTemplate"
+          },
+          {
+            "label": "Input Moderation",
+            "description": "Detect text that could generate harmful output and prevent it from being sent to the language model",
+            "name": "inputModeration",
+            "type": "Moderation",
+            "optional": true,
+            "list": true,
+            "id": "toolAgent_1-input-inputModeration-Moderation"
+          }
+        ],
+        "inputs": {
+          "tools": [
+            "{{chainTool_2.data.instance}}",
+            "{{customTool_0.data.instance}}",
+            "{{chainTool_3.data.instance}}"
+          ],
+          "memory": "{{bufferMemory_2.data.instance}}",
+          "model": "{{chatGoogleVertexAI_2.data.instance}}",
+          "chatPromptTemplate": "{{chatPromptTemplate_1.data.instance}}",
+          "systemMessage": "You are a helpful AI assistant.",
+          "inputModeration": "",
+          "maxIterations": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "toolAgent_1-output-toolAgent-AgentExecutor|BaseChain|Runnable",
+            "name": "toolAgent",
+            "label": "AgentExecutor",
+            "description": "Agent that uses Function Calling to pick the tools and args to call",
+            "type": "AgentExecutor | BaseChain | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 486,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 2966.324692205314,
+        "y": -966.419670310804
+      },
+      "dragging": false
+    },
+    {
+      "id": "chatGoogleVertexAI_2",
+      "position": {
+        "x": 2541.6068649030376,
+        "y": -593.4948696207065
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatGoogleVertexAI_2",
+        "label": "ChatGoogleVertexAI",
+        "version": 5.1,
+        "name": "chatGoogleVertexAI",
+        "type": "ChatGoogleVertexAI",
+        "baseClasses": [
+          "ChatGoogleVertexAI",
+          "ChatVertexAI",
+          "ChatGoogle",
+          "ChatGoogleBase",
+          "BaseChatModel",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "Chat Models",
+        "description": "Wrapper around VertexAI large language models that use the Chat endpoint",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "googleVertexAuth"
+            ],
+            "optional": true,
+            "description": "Google Vertex AI credential. If you are using a GCP service like Cloud Run, or if you have installed default credentials on your local machine, you do not need to set this credential.",
+            "id": "chatGoogleVertexAI_2-input-credential-credential"
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "id": "chatGoogleVertexAI_2-input-modelName-asyncOptions"
+          },
+          {
+            "label": "Custom Model Name",
+            "name": "customModelName",
+            "type": "string",
+            "placeholder": "gemini-1.5-pro-exp-0801",
+            "description": "Custom model name to use. If provided, it will override the model selected",
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_2-input-customModelName-string"
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "chatGoogleVertexAI_2-input-temperature-number"
+          },
+          {
+            "label": "Allow Image Uploads",
+            "name": "allowImageUploads",
+            "type": "boolean",
+            "description": "Allow image input. Refer to the <a href=\"https://docs.flowiseai.com/using-flowise/uploads#image\" target=\"_blank\">docs</a> for more details.",
+            "default": false,
+            "optional": true,
+            "id": "chatGoogleVertexAI_2-input-allowImageUploads-boolean"
+          },
+          {
+            "label": "Streaming",
+            "name": "streaming",
+            "type": "boolean",
+            "default": true,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_2-input-streaming-boolean"
+          },
+          {
+            "label": "Max Output Tokens",
+            "name": "maxOutputTokens",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_2-input-maxOutputTokens-number"
+          },
+          {
+            "label": "Top Probability",
+            "name": "topP",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_2-input-topP-number"
+          },
+          {
+            "label": "Top Next Highest Probability Tokens",
+            "name": "topK",
+            "type": "number",
+            "description": "Decode using top-k sampling: consider the set of top_k most probable tokens. Must be positive",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_2-input-topK-number"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "chatGoogleVertexAI_2-input-cache-BaseCache"
+          }
+        ],
+        "inputs": {
+          "cache": "",
+          "modelName": "gemini-1.5-pro-001",
+          "customModelName": "",
+          "temperature": 0.9,
+          "allowImageUploads": "",
+          "streaming": true,
+          "maxOutputTokens": "",
+          "topP": "",
+          "topK": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "chatGoogleVertexAI_2-output-chatGoogleVertexAI-ChatGoogleVertexAI|ChatVertexAI|ChatGoogle|ChatGoogleBase|BaseChatModel|BaseLanguageModel|Runnable",
+            "name": "chatGoogleVertexAI",
+            "label": "ChatGoogleVertexAI",
+            "description": "Wrapper around VertexAI large language models that use the Chat endpoint",
+            "type": "ChatGoogleVertexAI | ChatVertexAI | ChatGoogle | ChatGoogleBase | BaseChatModel | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 671,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 2541.6068649030376,
+        "y": -593.4948696207065
+      },
+      "dragging": false
+    },
+    {
+      "id": "bufferMemory_2",
+      "position": {
+        "x": 2537.796271018526,
+        "y": -865.9940643006668
+      },
+      "type": "customNode",
+      "data": {
+        "id": "bufferMemory_2",
+        "label": "Buffer Memory",
+        "version": 2,
+        "name": "bufferMemory",
+        "type": "BufferMemory",
+        "baseClasses": [
+          "BufferMemory",
+          "BaseChatMemory",
+          "BaseMemory"
+        ],
+        "category": "Memory",
+        "description": "Retrieve chat messages stored in database",
+        "inputParams": [
+          {
+            "label": "Session Id",
+            "name": "sessionId",
+            "type": "string",
+            "description": "If not specified, a random id will be used. Learn <a target=\"_blank\" href=\"https://docs.flowiseai.com/memory#ui-and-embedded-chat\">more</a>",
+            "default": "",
+            "additionalParams": true,
+            "optional": true,
+            "id": "bufferMemory_2-input-sessionId-string"
+          },
+          {
+            "label": "Memory Key",
+            "name": "memoryKey",
+            "type": "string",
+            "default": "chat_history",
+            "additionalParams": true,
+            "id": "bufferMemory_2-input-memoryKey-string"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "sessionId": "",
+          "memoryKey": "chat_history"
+        },
+        "outputAnchors": [
+          {
+            "id": "bufferMemory_2-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory",
+            "name": "bufferMemory",
+            "label": "BufferMemory",
+            "description": "Retrieve chat messages stored in database",
+            "type": "BufferMemory | BaseChatMemory | BaseMemory"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 253,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 2537.796271018526,
+        "y": -865.9940643006668
+      },
+      "dragging": false
+    },
+    {
+      "id": "chatPromptTemplate_1",
+      "position": {
+        "x": 2165.3160201403953,
+        "y": -617.5037092238579
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatPromptTemplate_1",
+        "label": "Chat Prompt Template",
+        "version": 2,
+        "name": "chatPromptTemplate",
+        "type": "ChatPromptTemplate",
+        "baseClasses": [
+          "ChatPromptTemplate",
+          "BaseChatPromptTemplate",
+          "BasePromptTemplate",
+          "Runnable"
+        ],
+        "category": "Prompts",
+        "description": "Schema to represent a chat prompt",
+        "inputParams": [
+          {
+            "label": "System Message",
+            "name": "systemMessagePrompt",
+            "type": "string",
+            "rows": 4,
+            "placeholder": "You are a helpful assistant that translates {input_language} to {output_language}.",
+            "id": "chatPromptTemplate_1-input-systemMessagePrompt-string"
+          },
+          {
+            "label": "Human Message",
+            "name": "humanMessagePrompt",
+            "description": "This prompt will be added at the end of the messages as human message",
+            "type": "string",
+            "rows": 4,
+            "placeholder": "{text}",
+            "id": "chatPromptTemplate_1-input-humanMessagePrompt-string"
+          },
+          {
+            "label": "Format Prompt Values",
+            "name": "promptValues",
+            "type": "json",
+            "optional": true,
+            "acceptVariable": true,
+            "list": true,
+            "id": "chatPromptTemplate_1-input-promptValues-json"
+          },
+          {
+            "label": "Messages History",
+            "name": "messageHistory",
+            "description": "Add messages after System Message. This is useful when you want to provide few shot examples",
+            "type": "tabs",
+            "tabIdentifier": "selectedMessagesTab",
+            "additionalParams": true,
+            "default": "messageHistoryCode",
+            "tabs": [
+              {
+                "label": "Add Messages (Code)",
+                "name": "messageHistoryCode",
+                "type": "code",
+                "hideCodeExecute": true,
+                "codeExample": "const { AIMessage, HumanMessage, ToolMessage } = require('@langchain/core/messages');\n\nreturn [\n    new HumanMessage(\"What is 333382 🦜 1932?\"),\n    new AIMessage({\n        content: \"\",\n        tool_calls: [\n        {\n            id: \"12345\",\n            name: \"calulator\",\n            args: {\n                number1: 333382,\n                number2: 1932,\n                operation: \"divide\",\n            },\n        },\n        ],\n    }),\n    new ToolMessage({\n        tool_call_id: \"12345\",\n        content: \"The answer is 172.558.\",\n    }),\n    new AIMessage(\"The answer is 172.558.\"),\n]",
+                "optional": true,
+                "additionalParams": true
+              }
+            ],
+            "id": "chatPromptTemplate_1-input-messageHistory-tabs"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "systemMessagePrompt": "You are a helpful and professional AI assistant that looks at {wikipedia_summary} and provides 4 sentence summary. Do not provide anything else.",
+          "humanMessagePrompt": "Please read the following Wikipedia summary and provide a concise 4-sentence summary. Do not include any additional information or explanations. Here is the Wikipedia summary:\n{wikipedia_summary} {link}",
+          "promptValues": "",
+          "messageHistory": "messageHistoryCode"
+        },
+        "outputAnchors": [
+          {
+            "id": "chatPromptTemplate_1-output-chatPromptTemplate-ChatPromptTemplate|BaseChatPromptTemplate|BasePromptTemplate|Runnable",
+            "name": "chatPromptTemplate",
+            "label": "ChatPromptTemplate",
+            "description": "Schema to represent a chat prompt",
+            "type": "ChatPromptTemplate | BaseChatPromptTemplate | BasePromptTemplate | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 743,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 2165.3160201403953,
+        "y": -617.5037092238579
+      },
+      "dragging": false
+    },
+    {
+      "id": "chainTool_2",
+      "position": {
+        "x": 1040.3755558716393,
+        "y": -1703.4837670700394
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chainTool_2",
+        "label": "Chain Tool",
+        "version": 1,
+        "name": "chainTool",
+        "type": "ChainTool",
+        "baseClasses": [
+          "ChainTool",
+          "DynamicTool",
+          "Tool",
+          "StructuredTool",
+          "Runnable"
+        ],
+        "category": "Tools",
+        "description": "Use a chain as allowed tool for agent",
+        "inputParams": [
+          {
+            "label": "Chain Name",
+            "name": "name",
+            "type": "string",
+            "placeholder": "state-of-union-qa",
+            "id": "chainTool_2-input-name-string"
+          },
+          {
+            "label": "Chain Description",
+            "name": "description",
+            "type": "string",
+            "rows": 3,
+            "placeholder": "State of the Union QA - useful for when you need to ask questions about the most recent state of the union address.",
+            "id": "chainTool_2-input-description-string"
+          },
+          {
+            "label": "Return Direct",
+            "name": "returnDirect",
+            "type": "boolean",
+            "optional": true,
+            "id": "chainTool_2-input-returnDirect-boolean"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Base Chain",
+            "name": "baseChain",
+            "type": "BaseChain",
+            "id": "chainTool_2-input-baseChain-BaseChain"
+          }
+        ],
+        "inputs": {
+          "name": "domain",
+          "description": "chooses the most related 4 wikipedia titles to the programming language",
+          "returnDirect": "",
+          "baseChain": "{{conversationChain_1.data.instance}}"
+        },
+        "outputAnchors": [
+          {
+            "id": "chainTool_2-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable",
+            "name": "chainTool",
+            "label": "ChainTool",
+            "description": "Use a chain as allowed tool for agent",
+            "type": "ChainTool | DynamicTool | Tool | StructuredTool | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 604,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1040.3755558716393,
+        "y": -1703.4837670700394
+      },
+      "dragging": false
+    },
+    {
+      "id": "customTool_0",
+      "position": {
+        "x": 2301.799161400426,
+        "y": -1600.362585922751
+      },
+      "type": "customNode",
+      "data": {
+        "id": "customTool_0",
+        "label": "Custom Tool",
+        "version": 2,
+        "name": "customTool",
+        "type": "CustomTool",
+        "baseClasses": [
+          "CustomTool",
+          "Tool",
+          "StructuredTool",
+          "Runnable"
+        ],
+        "category": "Tools",
+        "description": "Use custom tool you've created in Flowise within chatflow",
+        "inputParams": [
+          {
+            "label": "Select Tool",
+            "name": "selectedTool",
+            "type": "asyncOptions",
+            "loadMethod": "listTools",
+            "id": "customTool_0-input-selectedTool-asyncOptions"
+          },
+          {
+            "label": "Return Direct",
+            "name": "returnDirect",
+            "description": "Return the output of the tool directly to the user",
+            "type": "boolean",
+            "optional": true,
+            "id": "customTool_0-input-returnDirect-boolean"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "selectedTool": "d74a5580-8110-4096-98cf-6169190315d2",
+          "returnDirect": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "customTool_0-output-customTool-CustomTool|Tool|StructuredTool|Runnable",
+            "name": "customTool",
+            "label": "CustomTool",
+            "description": "Use custom tool you've created in Flowise within chatflow",
+            "type": "CustomTool | Tool | StructuredTool | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 373,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 2301.799161400426,
+        "y": -1600.362585922751
+      }
+    },
+    {
+      "id": "chainTool_3",
+      "position": {
+        "x": 1035.7563827566846,
+        "y": -1022.832022465645
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chainTool_3",
+        "label": "Chain Tool",
+        "version": 1,
+        "name": "chainTool",
+        "type": "ChainTool",
+        "baseClasses": [
+          "ChainTool",
+          "DynamicTool",
+          "Tool",
+          "StructuredTool",
+          "Runnable"
+        ],
+        "category": "Tools",
+        "description": "Use a chain as allowed tool for agent",
+        "inputParams": [
+          {
+            "label": "Chain Name",
+            "name": "name",
+            "type": "string",
+            "placeholder": "state-of-union-qa",
+            "id": "chainTool_3-input-name-string"
+          },
+          {
+            "label": "Chain Description",
+            "name": "description",
+            "type": "string",
+            "rows": 3,
+            "placeholder": "State of the Union QA - useful for when you need to ask questions about the most recent state of the union address.",
+            "id": "chainTool_3-input-description-string"
+          },
+          {
+            "label": "Return Direct",
+            "name": "returnDirect",
+            "type": "boolean",
+            "optional": true,
+            "id": "chainTool_3-input-returnDirect-boolean"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Base Chain",
+            "name": "baseChain",
+            "type": "BaseChain",
+            "id": "chainTool_3-input-baseChain-BaseChain"
+          }
+        ],
+        "inputs": {
+          "name": "title",
+          "description": "chooses the most related 4 wikipedia titles to the programming language}and domain",
+          "returnDirect": "",
+          "baseChain": "{{conversationChain_0.data.instance}}"
+        },
+        "outputAnchors": [
+          {
+            "id": "chainTool_3-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable",
+            "name": "chainTool",
+            "label": "ChainTool",
+            "description": "Use a chain as allowed tool for agent",
+            "type": "ChainTool | DynamicTool | Tool | StructuredTool | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 604,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1035.7563827566846,
+        "y": -1022.832022465645
+      },
+      "dragging": false
+    },
+    {
+      "id": "chatGoogleVertexAI_3",
+      "position": {
+        "x": -149.78105955144986,
+        "y": -672.4055004927563
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatGoogleVertexAI_3",
+        "label": "ChatGoogleVertexAI",
+        "version": 5.1,
+        "name": "chatGoogleVertexAI",
+        "type": "ChatGoogleVertexAI",
+        "baseClasses": [
+          "ChatGoogleVertexAI",
+          "ChatVertexAI",
+          "ChatGoogle",
+          "ChatGoogleBase",
+          "BaseChatModel",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "Chat Models",
+        "description": "Wrapper around VertexAI large language models that use the Chat endpoint",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "googleVertexAuth"
+            ],
+            "optional": true,
+            "description": "Google Vertex AI credential. If you are using a GCP service like Cloud Run, or if you have installed default credentials on your local machine, you do not need to set this credential.",
+            "id": "chatGoogleVertexAI_3-input-credential-credential"
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "id": "chatGoogleVertexAI_3-input-modelName-asyncOptions"
+          },
+          {
+            "label": "Custom Model Name",
+            "name": "customModelName",
+            "type": "string",
+            "placeholder": "gemini-1.5-pro-exp-0801",
+            "description": "Custom model name to use. If provided, it will override the model selected",
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_3-input-customModelName-string"
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "chatGoogleVertexAI_3-input-temperature-number"
+          },
+          {
+            "label": "Allow Image Uploads",
+            "name": "allowImageUploads",
+            "type": "boolean",
+            "description": "Allow image input. Refer to the <a href=\"https://docs.flowiseai.com/using-flowise/uploads#image\" target=\"_blank\">docs</a> for more details.",
+            "default": false,
+            "optional": true,
+            "id": "chatGoogleVertexAI_3-input-allowImageUploads-boolean"
+          },
+          {
+            "label": "Streaming",
+            "name": "streaming",
+            "type": "boolean",
+            "default": true,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_3-input-streaming-boolean"
+          },
+          {
+            "label": "Max Output Tokens",
+            "name": "maxOutputTokens",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_3-input-maxOutputTokens-number"
+          },
+          {
+            "label": "Top Probability",
+            "name": "topP",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_3-input-topP-number"
+          },
+          {
+            "label": "Top Next Highest Probability Tokens",
+            "name": "topK",
+            "type": "number",
+            "description": "Decode using top-k sampling: consider the set of top_k most probable tokens. Must be positive",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_3-input-topK-number"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "chatGoogleVertexAI_3-input-cache-BaseCache"
+          }
+        ],
+        "inputs": {
+          "cache": "",
+          "modelName": "gemini-1.5-pro-001",
+          "customModelName": "",
+          "temperature": 0.9,
+          "allowImageUploads": "",
+          "streaming": true,
+          "maxOutputTokens": "",
+          "topP": "",
+          "topK": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "chatGoogleVertexAI_3-output-chatGoogleVertexAI-ChatGoogleVertexAI|ChatVertexAI|ChatGoogle|ChatGoogleBase|BaseChatModel|BaseLanguageModel|Runnable",
+            "name": "chatGoogleVertexAI",
+            "label": "ChatGoogleVertexAI",
+            "description": "Wrapper around VertexAI large language models that use the Chat endpoint",
+            "type": "ChatGoogleVertexAI | ChatVertexAI | ChatGoogle | ChatGoogleBase | BaseChatModel | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 671,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -149.78105955144986,
+        "y": -672.4055004927563
+      },
+      "dragging": false
+    },
+    {
+      "id": "conversationChain_0",
+      "position": {
+        "x": 329.3576218225677,
+        "y": -856.8706323335468
+      },
+      "type": "customNode",
+      "data": {
+        "id": "conversationChain_0",
+        "label": "Conversation Chain",
+        "version": 3,
+        "name": "conversationChain",
+        "type": "ConversationChain",
+        "baseClasses": [
+          "ConversationChain",
+          "LLMChain",
+          "BaseChain",
+          "Runnable"
+        ],
+        "category": "Chains",
+        "description": "Chat models specific conversational chain with memory",
+        "inputParams": [
+          {
+            "label": "System Message",
+            "name": "systemMessagePrompt",
+            "type": "string",
+            "rows": 4,
+            "description": "If Chat Prompt Template is provided, this will be ignored",
+            "additionalParams": true,
+            "optional": true,
+            "default": "The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know.",
+            "placeholder": "The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know.",
+            "id": "conversationChain_0-input-systemMessagePrompt-string"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Chat Model",
+            "name": "model",
+            "type": "BaseChatModel",
+            "id": "conversationChain_0-input-model-BaseChatModel"
+          },
+          {
+            "label": "Memory",
+            "name": "memory",
+            "type": "BaseMemory",
+            "id": "conversationChain_0-input-memory-BaseMemory"
+          },
+          {
+            "label": "Chat Prompt Template",
+            "name": "chatPromptTemplate",
+            "type": "ChatPromptTemplate",
+            "description": "Override existing prompt with Chat Prompt Template. Human Message must includes {input} variable",
+            "optional": true,
+            "id": "conversationChain_0-input-chatPromptTemplate-ChatPromptTemplate"
+          },
+          {
+            "label": "Input Moderation",
+            "description": "Detect text that could generate harmful output and prevent it from being sent to the language model",
+            "name": "inputModeration",
+            "type": "Moderation",
+            "optional": true,
+            "list": true,
+            "id": "conversationChain_0-input-inputModeration-Moderation"
+          }
+        ],
+        "inputs": {
+          "model": "{{chatGoogleVertexAI_3.data.instance}}",
+          "memory": "{{bufferMemory_4.data.instance}}",
+          "chatPromptTemplate": "{{chatPromptTemplate_2.data.instance}}",
+          "inputModeration": "",
+          "systemMessagePrompt": "The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know."
+        },
+        "outputAnchors": [
+          {
+            "id": "conversationChain_0-output-conversationChain-ConversationChain|LLMChain|BaseChain|Runnable",
+            "name": "conversationChain",
+            "label": "ConversationChain",
+            "description": "Chat models specific conversational chain with memory",
+            "type": "ConversationChain | LLMChain | BaseChain | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 436,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 329.3576218225677,
+        "y": -856.8706323335468
+      },
+      "dragging": false
+    },
+    {
+      "id": "chatGoogleVertexAI_4",
+      "position": {
+        "x": -190.4454581931836,
+        "y": -1821.58912832316
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatGoogleVertexAI_4",
+        "label": "ChatGoogleVertexAI",
+        "version": 5.1,
+        "name": "chatGoogleVertexAI",
+        "type": "ChatGoogleVertexAI",
+        "baseClasses": [
+          "ChatGoogleVertexAI",
+          "ChatVertexAI",
+          "ChatGoogle",
+          "ChatGoogleBase",
+          "BaseChatModel",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "Chat Models",
+        "description": "Wrapper around VertexAI large language models that use the Chat endpoint",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "googleVertexAuth"
+            ],
+            "optional": true,
+            "description": "Google Vertex AI credential. If you are using a GCP service like Cloud Run, or if you have installed default credentials on your local machine, you do not need to set this credential.",
+            "id": "chatGoogleVertexAI_4-input-credential-credential"
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "id": "chatGoogleVertexAI_4-input-modelName-asyncOptions"
+          },
+          {
+            "label": "Custom Model Name",
+            "name": "customModelName",
+            "type": "string",
+            "placeholder": "gemini-1.5-pro-exp-0801",
+            "description": "Custom model name to use. If provided, it will override the model selected",
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_4-input-customModelName-string"
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "chatGoogleVertexAI_4-input-temperature-number"
+          },
+          {
+            "label": "Allow Image Uploads",
+            "name": "allowImageUploads",
+            "type": "boolean",
+            "description": "Allow image input. Refer to the <a href=\"https://docs.flowiseai.com/using-flowise/uploads#image\" target=\"_blank\">docs</a> for more details.",
+            "default": false,
+            "optional": true,
+            "id": "chatGoogleVertexAI_4-input-allowImageUploads-boolean"
+          },
+          {
+            "label": "Streaming",
+            "name": "streaming",
+            "type": "boolean",
+            "default": true,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_4-input-streaming-boolean"
+          },
+          {
+            "label": "Max Output Tokens",
+            "name": "maxOutputTokens",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_4-input-maxOutputTokens-number"
+          },
+          {
+            "label": "Top Probability",
+            "name": "topP",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_4-input-topP-number"
+          },
+          {
+            "label": "Top Next Highest Probability Tokens",
+            "name": "topK",
+            "type": "number",
+            "description": "Decode using top-k sampling: consider the set of top_k most probable tokens. Must be positive",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleVertexAI_4-input-topK-number"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "chatGoogleVertexAI_4-input-cache-BaseCache"
+          }
+        ],
+        "inputs": {
+          "cache": "",
+          "modelName": "gemini-1.5-pro-001",
+          "customModelName": "",
+          "temperature": 0.9,
+          "allowImageUploads": "",
+          "streaming": true,
+          "maxOutputTokens": "",
+          "topP": "",
+          "topK": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "chatGoogleVertexAI_4-output-chatGoogleVertexAI-ChatGoogleVertexAI|ChatVertexAI|ChatGoogle|ChatGoogleBase|BaseChatModel|BaseLanguageModel|Runnable",
+            "name": "chatGoogleVertexAI",
+            "label": "ChatGoogleVertexAI",
+            "description": "Wrapper around VertexAI large language models that use the Chat endpoint",
+            "type": "ChatGoogleVertexAI | ChatVertexAI | ChatGoogle | ChatGoogleBase | BaseChatModel | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 671,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -190.4454581931836,
+        "y": -1821.58912832316
+      },
+      "dragging": false
+    },
+    {
+      "id": "conversationChain_1",
+      "position": {
+        "x": 370.77776802586277,
+        "y": -1677.7160807838352
+      },
+      "type": "customNode",
+      "data": {
+        "id": "conversationChain_1",
+        "label": "Conversation Chain",
+        "version": 3,
+        "name": "conversationChain",
+        "type": "ConversationChain",
+        "baseClasses": [
+          "ConversationChain",
+          "LLMChain",
+          "BaseChain",
+          "Runnable"
+        ],
+        "category": "Chains",
+        "description": "Chat models specific conversational chain with memory",
+        "inputParams": [
+          {
+            "label": "System Message",
+            "name": "systemMessagePrompt",
+            "type": "string",
+            "rows": 4,
+            "description": "If Chat Prompt Template is provided, this will be ignored",
+            "additionalParams": true,
+            "optional": true,
+            "default": "The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know.",
+            "placeholder": "The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know.",
+            "id": "conversationChain_1-input-systemMessagePrompt-string"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Chat Model",
+            "name": "model",
+            "type": "BaseChatModel",
+            "id": "conversationChain_1-input-model-BaseChatModel"
+          },
+          {
+            "label": "Memory",
+            "name": "memory",
+            "type": "BaseMemory",
+            "id": "conversationChain_1-input-memory-BaseMemory"
+          },
+          {
+            "label": "Chat Prompt Template",
+            "name": "chatPromptTemplate",
+            "type": "ChatPromptTemplate",
+            "description": "Override existing prompt with Chat Prompt Template. Human Message must includes {input} variable",
+            "optional": true,
+            "id": "conversationChain_1-input-chatPromptTemplate-ChatPromptTemplate"
+          },
+          {
+            "label": "Input Moderation",
+            "description": "Detect text that could generate harmful output and prevent it from being sent to the language model",
+            "name": "inputModeration",
+            "type": "Moderation",
+            "optional": true,
+            "list": true,
+            "id": "conversationChain_1-input-inputModeration-Moderation"
+          }
+        ],
+        "inputs": {
+          "model": "{{chatGoogleVertexAI_4.data.instance}}",
+          "memory": "{{bufferMemory_3.data.instance}}",
+          "chatPromptTemplate": "{{chatPromptTemplate_3.data.instance}}",
+          "inputModeration": "",
+          "systemMessagePrompt": "The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know."
+        },
+        "outputAnchors": [
+          {
+            "id": "conversationChain_1-output-conversationChain-ConversationChain|LLMChain|BaseChain|Runnable",
+            "name": "conversationChain",
+            "label": "ConversationChain",
+            "description": "Chat models specific conversational chain with memory",
+            "type": "ConversationChain | LLMChain | BaseChain | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 436,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 370.77776802586277,
+        "y": -1677.7160807838352
+      },
+      "dragging": false
+    },
+    {
+      "id": "bufferMemory_3",
+      "position": {
+        "x": -181.89003051906707,
+        "y": -2135.8927137949195
+      },
+      "type": "customNode",
+      "data": {
+        "id": "bufferMemory_3",
+        "label": "Buffer Memory",
+        "version": 2,
+        "name": "bufferMemory",
+        "type": "BufferMemory",
+        "baseClasses": [
+          "BufferMemory",
+          "BaseChatMemory",
+          "BaseMemory"
+        ],
+        "category": "Memory",
+        "description": "Retrieve chat messages stored in database",
+        "inputParams": [
+          {
+            "label": "Session Id",
+            "name": "sessionId",
+            "type": "string",
+            "description": "If not specified, a random id will be used. Learn <a target=\"_blank\" href=\"https://docs.flowiseai.com/memory#ui-and-embedded-chat\">more</a>",
+            "default": "",
+            "additionalParams": true,
+            "optional": true,
+            "id": "bufferMemory_3-input-sessionId-string"
+          },
+          {
+            "label": "Memory Key",
+            "name": "memoryKey",
+            "type": "string",
+            "default": "chat_history",
+            "additionalParams": true,
+            "id": "bufferMemory_3-input-memoryKey-string"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "sessionId": "",
+          "memoryKey": "chat_history"
+        },
+        "outputAnchors": [
+          {
+            "id": "bufferMemory_3-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory",
+            "name": "bufferMemory",
+            "label": "BufferMemory",
+            "description": "Retrieve chat messages stored in database",
+            "type": "BufferMemory | BaseChatMemory | BaseMemory"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 253,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -181.89003051906707,
+        "y": -2135.8927137949195
+      },
+      "dragging": false
+    },
+    {
+      "id": "bufferMemory_4",
+      "position": {
+        "x": -157.68225789611864,
+        "y": -945.0674722055365
+      },
+      "type": "customNode",
+      "data": {
+        "id": "bufferMemory_4",
+        "label": "Buffer Memory",
+        "version": 2,
+        "name": "bufferMemory",
+        "type": "BufferMemory",
+        "baseClasses": [
+          "BufferMemory",
+          "BaseChatMemory",
+          "BaseMemory"
+        ],
+        "category": "Memory",
+        "description": "Retrieve chat messages stored in database",
+        "inputParams": [
+          {
+            "label": "Session Id",
+            "name": "sessionId",
+            "type": "string",
+            "description": "If not specified, a random id will be used. Learn <a target=\"_blank\" href=\"https://docs.flowiseai.com/memory#ui-and-embedded-chat\">more</a>",
+            "default": "",
+            "additionalParams": true,
+            "optional": true,
+            "id": "bufferMemory_4-input-sessionId-string"
+          },
+          {
+            "label": "Memory Key",
+            "name": "memoryKey",
+            "type": "string",
+            "default": "chat_history",
+            "additionalParams": true,
+            "id": "bufferMemory_4-input-memoryKey-string"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "sessionId": "",
+          "memoryKey": "chat_history"
+        },
+        "outputAnchors": [
+          {
+            "id": "bufferMemory_4-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory",
+            "name": "bufferMemory",
+            "label": "BufferMemory",
+            "description": "Retrieve chat messages stored in database",
+            "type": "BufferMemory | BaseChatMemory | BaseMemory"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 253,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -157.68225789611864,
+        "y": -945.0674722055365
+      },
+      "dragging": false
+    },
+    {
+      "id": "chatPromptTemplate_2",
+      "position": {
+        "x": -578.66841726152,
+        "y": -903.1363873513774
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatPromptTemplate_2",
+        "label": "Chat Prompt Template",
+        "version": 2,
+        "name": "chatPromptTemplate",
+        "type": "ChatPromptTemplate",
+        "baseClasses": [
+          "ChatPromptTemplate",
+          "BaseChatPromptTemplate",
+          "BasePromptTemplate",
+          "Runnable"
+        ],
+        "category": "Prompts",
+        "description": "Schema to represent a chat prompt",
+        "inputParams": [
+          {
+            "label": "System Message",
+            "name": "systemMessagePrompt",
+            "type": "string",
+            "rows": 4,
+            "placeholder": "You are a helpful assistant that translates {input_language} to {output_language}.",
+            "id": "chatPromptTemplate_2-input-systemMessagePrompt-string"
+          },
+          {
+            "label": "Human Message",
+            "name": "humanMessagePrompt",
+            "description": "This prompt will be added at the end of the messages as human message",
+            "type": "string",
+            "rows": 4,
+            "placeholder": "{text}",
+            "id": "chatPromptTemplate_2-input-humanMessagePrompt-string"
+          },
+          {
+            "label": "Format Prompt Values",
+            "name": "promptValues",
+            "type": "json",
+            "optional": true,
+            "acceptVariable": true,
+            "list": true,
+            "id": "chatPromptTemplate_2-input-promptValues-json"
+          },
+          {
+            "label": "Messages History",
+            "name": "messageHistory",
+            "description": "Add messages after System Message. This is useful when you want to provide few shot examples",
+            "type": "tabs",
+            "tabIdentifier": "selectedMessagesTab",
+            "additionalParams": true,
+            "default": "messageHistoryCode",
+            "tabs": [
+              {
+                "label": "Add Messages (Code)",
+                "name": "messageHistoryCode",
+                "type": "code",
+                "hideCodeExecute": true,
+                "codeExample": "const { AIMessage, HumanMessage, ToolMessage } = require('@langchain/core/messages');\n\nreturn [\n    new HumanMessage(\"What is 333382 🦜 1932?\"),\n    new AIMessage({\n        content: \"\",\n        tool_calls: [\n        {\n            id: \"12345\",\n            name: \"calulator\",\n            args: {\n                number1: 333382,\n                number2: 1932,\n                operation: \"divide\",\n            },\n        },\n        ],\n    }),\n    new ToolMessage({\n        tool_call_id: \"12345\",\n        content: \"The answer is 172.558.\",\n    }),\n    new AIMessage(\"The answer is 172.558.\"),\n]",
+                "optional": true,
+                "additionalParams": true
+              }
+            ],
+            "id": "chatPromptTemplate_2-input-messageHistory-tabs"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "systemMessagePrompt": "You are a helpful and professional AI assistant that looks at {wikipedia_links} and \n            chooses the most related 4 wikipedia titles to the programming {language}. \n            You will present these three titles as python string like so: title1, title2, title3, title4.\n            Do not provide anything else.",
+          "humanMessagePrompt": "Please analyze the following Wikipedia links and select the 4 titles that are most relevant to the programming language Python. Present the selected titles as a Python string in the following format: title1, title2, title3, title4. Do not provide any additional explanations or information.",
+          "promptValues": "",
+          "messageHistory": "messageHistoryCode"
+        },
+        "outputAnchors": [
+          {
+            "id": "chatPromptTemplate_2-output-chatPromptTemplate-ChatPromptTemplate|BaseChatPromptTemplate|BasePromptTemplate|Runnable",
+            "name": "chatPromptTemplate",
+            "label": "ChatPromptTemplate",
+            "description": "Schema to represent a chat prompt",
+            "type": "ChatPromptTemplate | BaseChatPromptTemplate | BasePromptTemplate | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 743,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -578.66841726152,
+        "y": -903.1363873513774
+      },
+      "dragging": false
+    },
+    {
+      "id": "chatPromptTemplate_3",
+      "position": {
+        "x": -574.8225110825683,
+        "y": -1893.7003412183576
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatPromptTemplate_3",
+        "label": "Chat Prompt Template",
+        "version": 2,
+        "name": "chatPromptTemplate",
+        "type": "ChatPromptTemplate",
+        "baseClasses": [
+          "ChatPromptTemplate",
+          "BaseChatPromptTemplate",
+          "BasePromptTemplate",
+          "Runnable"
+        ],
+        "category": "Prompts",
+        "description": "Schema to represent a chat prompt",
+        "inputParams": [
+          {
+            "label": "System Message",
+            "name": "systemMessagePrompt",
+            "type": "string",
+            "rows": 4,
+            "placeholder": "You are a helpful assistant that translates {input_language} to {output_language}.",
+            "id": "chatPromptTemplate_3-input-systemMessagePrompt-string"
+          },
+          {
+            "label": "Human Message",
+            "name": "humanMessagePrompt",
+            "description": "This prompt will be added at the end of the messages as human message",
+            "type": "string",
+            "rows": 4,
+            "placeholder": "{text}",
+            "id": "chatPromptTemplate_3-input-humanMessagePrompt-string"
+          },
+          {
+            "label": "Format Prompt Values",
+            "name": "promptValues",
+            "type": "json",
+            "optional": true,
+            "acceptVariable": true,
+            "list": true,
+            "id": "chatPromptTemplate_3-input-promptValues-json"
+          },
+          {
+            "label": "Messages History",
+            "name": "messageHistory",
+            "description": "Add messages after System Message. This is useful when you want to provide few shot examples",
+            "type": "tabs",
+            "tabIdentifier": "selectedMessagesTab",
+            "additionalParams": true,
+            "default": "messageHistoryCode",
+            "tabs": [
+              {
+                "label": "Add Messages (Code)",
+                "name": "messageHistoryCode",
+                "type": "code",
+                "hideCodeExecute": true,
+                "codeExample": "const { AIMessage, HumanMessage, ToolMessage } = require('@langchain/core/messages');\n\nreturn [\n    new HumanMessage(\"What is 333382 🦜 1932?\"),\n    new AIMessage({\n        content: \"\",\n        tool_calls: [\n        {\n            id: \"12345\",\n            name: \"calulator\",\n            args: {\n                number1: 333382,\n                number2: 1932,\n                operation: \"divide\",\n            },\n        },\n        ],\n    }),\n    new ToolMessage({\n        tool_call_id: \"12345\",\n        content: \"The answer is 172.558.\",\n    }),\n    new AIMessage(\"The answer is 172.558.\"),\n]",
+                "optional": true,
+                "additionalParams": true
+              }
+            ],
+            "id": "chatPromptTemplate_3-input-messageHistory-tabs"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "systemMessagePrompt": "You are a helpful and professional AI assistant that looks at {wikipedia_links} and \n            chooses the most related 4 wikipedia titles to the programming {language} and {domain}. \n            You will present these three titles as python string like so: title1, title2, title3, title4.\n            Do not provide anything else.",
+          "humanMessagePrompt": "Please analyze the following Wikipedia links and select the 4 titles that are most relevant to the programming language Python and the domain Machine Learning. Present the selected titles as a Python string in the following format: title1, title2, title3, title4. Do not provide any additional explanations or information.",
+          "promptValues": "",
+          "messageHistory": "messageHistoryCode"
+        },
+        "outputAnchors": [
+          {
+            "id": "chatPromptTemplate_3-output-chatPromptTemplate-ChatPromptTemplate|BaseChatPromptTemplate|BasePromptTemplate|Runnable",
+            "name": "chatPromptTemplate",
+            "label": "ChatPromptTemplate",
+            "description": "Schema to represent a chat prompt",
+            "type": "ChatPromptTemplate | BaseChatPromptTemplate | BasePromptTemplate | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 743,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -574.8225110825683,
+        "y": -1893.7003412183576
+      },
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "bufferMemory_0",
+      "sourceHandle": "bufferMemory_0-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory",
+      "target": "conversationalRetrievalQAChain_0",
+      "targetHandle": "conversationalRetrievalQAChain_0-input-memory-BaseMemory",
+      "type": "buttonedge",
+      "id": "bufferMemory_0-bufferMemory_0-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory-conversationalRetrievalQAChain_0-conversationalRetrievalQAChain_0-input-memory-BaseMemory"
+    },
+    {
+      "source": "chroma_0",
+      "sourceHandle": "chroma_0-output-retriever-Chroma|VectorStoreRetriever|BaseRetriever",
+      "target": "conversationalRetrievalQAChain_0",
+      "targetHandle": "conversationalRetrievalQAChain_0-input-vectorStoreRetriever-BaseRetriever",
+      "type": "buttonedge",
+      "id": "chroma_0-chroma_0-output-retriever-Chroma|VectorStoreRetriever|BaseRetriever-conversationalRetrievalQAChain_0-conversationalRetrievalQAChain_0-input-vectorStoreRetriever-BaseRetriever"
+    },
+    {
+      "source": "chatGoogleVertexAI_0",
+      "sourceHandle": "chatGoogleVertexAI_0-output-chatGoogleVertexAI-ChatGoogleVertexAI|ChatVertexAI|ChatGoogle|ChatGoogleBase|BaseChatModel|BaseLanguageModel|Runnable",
+      "target": "conversationalRetrievalQAChain_0",
+      "targetHandle": "conversationalRetrievalQAChain_0-input-model-BaseChatModel",
+      "type": "buttonedge",
+      "id": "chatGoogleVertexAI_0-chatGoogleVertexAI_0-output-chatGoogleVertexAI-ChatGoogleVertexAI|ChatVertexAI|ChatGoogle|ChatGoogleBase|BaseChatModel|BaseLanguageModel|Runnable-conversationalRetrievalQAChain_0-conversationalRetrievalQAChain_0-input-model-BaseChatModel"
+    },
+    {
+      "source": "googlevertexaiEmbeddings_0",
+      "sourceHandle": "googlevertexaiEmbeddings_0-output-googlevertexaiEmbeddings-GoogleVertexAIEmbeddings|GoogleEmbeddings|BaseGoogleEmbeddings|Embeddings",
+      "target": "chroma_0",
+      "targetHandle": "chroma_0-input-embeddings-Embeddings",
+      "type": "buttonedge",
+      "id": "googlevertexaiEmbeddings_0-googlevertexaiEmbeddings_0-output-googlevertexaiEmbeddings-GoogleVertexAIEmbeddings|GoogleEmbeddings|BaseGoogleEmbeddings|Embeddings-chroma_0-chroma_0-input-embeddings-Embeddings"
+    },
+    {
+      "source": "conversationalRetrievalQAChain_0",
+      "sourceHandle": "conversationalRetrievalQAChain_0-output-conversationalRetrievalQAChain-ConversationalRetrievalQAChain|BaseChain|Runnable",
+      "target": "chainTool_0",
+      "targetHandle": "chainTool_0-input-baseChain-BaseChain",
+      "type": "buttonedge",
+      "id": "conversationalRetrievalQAChain_0-conversationalRetrievalQAChain_0-output-conversationalRetrievalQAChain-ConversationalRetrievalQAChain|BaseChain|Runnable-chainTool_0-chainTool_0-input-baseChain-BaseChain"
+    },
+    {
+      "source": "chainTool_0",
+      "sourceHandle": "chainTool_0-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-tools-Tool",
+      "type": "buttonedge",
+      "id": "chainTool_0-chainTool_0-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable-toolAgent_0-toolAgent_0-input-tools-Tool"
+    },
+    {
+      "source": "bufferMemory_1",
+      "sourceHandle": "bufferMemory_1-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-memory-BaseChatMemory",
+      "type": "buttonedge",
+      "id": "bufferMemory_1-bufferMemory_1-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory-toolAgent_0-toolAgent_0-input-memory-BaseChatMemory"
+    },
+    {
+      "source": "chatGoogleVertexAI_1",
+      "sourceHandle": "chatGoogleVertexAI_1-output-chatGoogleVertexAI-ChatGoogleVertexAI|ChatVertexAI|ChatGoogle|ChatGoogleBase|BaseChatModel|BaseLanguageModel|Runnable",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-model-BaseChatModel",
+      "type": "buttonedge",
+      "id": "chatGoogleVertexAI_1-chatGoogleVertexAI_1-output-chatGoogleVertexAI-ChatGoogleVertexAI|ChatVertexAI|ChatGoogle|ChatGoogleBase|BaseChatModel|BaseLanguageModel|Runnable-toolAgent_0-toolAgent_0-input-model-BaseChatModel"
+    },
+    {
+      "source": "chatPromptTemplate_0",
+      "sourceHandle": "chatPromptTemplate_0-output-chatPromptTemplate-ChatPromptTemplate|BaseChatPromptTemplate|BasePromptTemplate|Runnable",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-chatPromptTemplate-ChatPromptTemplate",
+      "type": "buttonedge",
+      "id": "chatPromptTemplate_0-chatPromptTemplate_0-output-chatPromptTemplate-ChatPromptTemplate|BaseChatPromptTemplate|BasePromptTemplate|Runnable-toolAgent_0-toolAgent_0-input-chatPromptTemplate-ChatPromptTemplate"
+    },
+    {
+      "source": "chainTool_1",
+      "sourceHandle": "chainTool_1-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-tools-Tool",
+      "type": "buttonedge",
+      "id": "chainTool_1-chainTool_1-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable-toolAgent_0-toolAgent_0-input-tools-Tool"
+    },
+    {
+      "source": "toolAgent_1",
+      "sourceHandle": "toolAgent_1-output-toolAgent-AgentExecutor|BaseChain|Runnable",
+      "target": "chainTool_1",
+      "targetHandle": "chainTool_1-input-baseChain-BaseChain",
+      "type": "buttonedge",
+      "id": "toolAgent_1-toolAgent_1-output-toolAgent-AgentExecutor|BaseChain|Runnable-chainTool_1-chainTool_1-input-baseChain-BaseChain"
+    },
+    {
+      "source": "chatGoogleVertexAI_2",
+      "sourceHandle": "chatGoogleVertexAI_2-output-chatGoogleVertexAI-ChatGoogleVertexAI|ChatVertexAI|ChatGoogle|ChatGoogleBase|BaseChatModel|BaseLanguageModel|Runnable",
+      "target": "toolAgent_1",
+      "targetHandle": "toolAgent_1-input-model-BaseChatModel",
+      "type": "buttonedge",
+      "id": "chatGoogleVertexAI_2-chatGoogleVertexAI_2-output-chatGoogleVertexAI-ChatGoogleVertexAI|ChatVertexAI|ChatGoogle|ChatGoogleBase|BaseChatModel|BaseLanguageModel|Runnable-toolAgent_1-toolAgent_1-input-model-BaseChatModel"
+    },
+    {
+      "source": "bufferMemory_2",
+      "sourceHandle": "bufferMemory_2-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory",
+      "target": "toolAgent_1",
+      "targetHandle": "toolAgent_1-input-memory-BaseChatMemory",
+      "type": "buttonedge",
+      "id": "bufferMemory_2-bufferMemory_2-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory-toolAgent_1-toolAgent_1-input-memory-BaseChatMemory"
+    },
+    {
+      "source": "chainTool_2",
+      "sourceHandle": "chainTool_2-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable",
+      "target": "toolAgent_1",
+      "targetHandle": "toolAgent_1-input-tools-Tool",
+      "type": "buttonedge",
+      "id": "chainTool_2-chainTool_2-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable-toolAgent_1-toolAgent_1-input-tools-Tool"
+    },
+    {
+      "source": "chatPromptTemplate_1",
+      "sourceHandle": "chatPromptTemplate_1-output-chatPromptTemplate-ChatPromptTemplate|BaseChatPromptTemplate|BasePromptTemplate|Runnable",
+      "target": "toolAgent_1",
+      "targetHandle": "toolAgent_1-input-chatPromptTemplate-ChatPromptTemplate",
+      "type": "buttonedge",
+      "id": "chatPromptTemplate_1-chatPromptTemplate_1-output-chatPromptTemplate-ChatPromptTemplate|BaseChatPromptTemplate|BasePromptTemplate|Runnable-toolAgent_1-toolAgent_1-input-chatPromptTemplate-ChatPromptTemplate"
+    },
+    {
+      "source": "customTool_0",
+      "sourceHandle": "customTool_0-output-customTool-CustomTool|Tool|StructuredTool|Runnable",
+      "target": "toolAgent_1",
+      "targetHandle": "toolAgent_1-input-tools-Tool",
+      "type": "buttonedge",
+      "id": "customTool_0-customTool_0-output-customTool-CustomTool|Tool|StructuredTool|Runnable-toolAgent_1-toolAgent_1-input-tools-Tool"
+    },
+    {
+      "source": "chainTool_3",
+      "sourceHandle": "chainTool_3-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable",
+      "target": "toolAgent_1",
+      "targetHandle": "toolAgent_1-input-tools-Tool",
+      "type": "buttonedge",
+      "id": "chainTool_3-chainTool_3-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable-toolAgent_1-toolAgent_1-input-tools-Tool"
+    },
+    {
+      "source": "conversationChain_1",
+      "sourceHandle": "conversationChain_1-output-conversationChain-ConversationChain|LLMChain|BaseChain|Runnable",
+      "target": "chainTool_2",
+      "targetHandle": "chainTool_2-input-baseChain-BaseChain",
+      "type": "buttonedge",
+      "id": "conversationChain_1-conversationChain_1-output-conversationChain-ConversationChain|LLMChain|BaseChain|Runnable-chainTool_2-chainTool_2-input-baseChain-BaseChain"
+    },
+    {
+      "source": "chatGoogleVertexAI_4",
+      "sourceHandle": "chatGoogleVertexAI_4-output-chatGoogleVertexAI-ChatGoogleVertexAI|ChatVertexAI|ChatGoogle|ChatGoogleBase|BaseChatModel|BaseLanguageModel|Runnable",
+      "target": "conversationChain_1",
+      "targetHandle": "conversationChain_1-input-model-BaseChatModel",
+      "type": "buttonedge",
+      "id": "chatGoogleVertexAI_4-chatGoogleVertexAI_4-output-chatGoogleVertexAI-ChatGoogleVertexAI|ChatVertexAI|ChatGoogle|ChatGoogleBase|BaseChatModel|BaseLanguageModel|Runnable-conversationChain_1-conversationChain_1-input-model-BaseChatModel"
+    },
+    {
+      "source": "bufferMemory_3",
+      "sourceHandle": "bufferMemory_3-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory",
+      "target": "conversationChain_1",
+      "targetHandle": "conversationChain_1-input-memory-BaseMemory",
+      "type": "buttonedge",
+      "id": "bufferMemory_3-bufferMemory_3-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory-conversationChain_1-conversationChain_1-input-memory-BaseMemory"
+    },
+    {
+      "source": "bufferMemory_4",
+      "sourceHandle": "bufferMemory_4-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory",
+      "target": "conversationChain_0",
+      "targetHandle": "conversationChain_0-input-memory-BaseMemory",
+      "type": "buttonedge",
+      "id": "bufferMemory_4-bufferMemory_4-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory-conversationChain_0-conversationChain_0-input-memory-BaseMemory"
+    },
+    {
+      "source": "chatGoogleVertexAI_3",
+      "sourceHandle": "chatGoogleVertexAI_3-output-chatGoogleVertexAI-ChatGoogleVertexAI|ChatVertexAI|ChatGoogle|ChatGoogleBase|BaseChatModel|BaseLanguageModel|Runnable",
+      "target": "conversationChain_0",
+      "targetHandle": "conversationChain_0-input-model-BaseChatModel",
+      "type": "buttonedge",
+      "id": "chatGoogleVertexAI_3-chatGoogleVertexAI_3-output-chatGoogleVertexAI-ChatGoogleVertexAI|ChatVertexAI|ChatGoogle|ChatGoogleBase|BaseChatModel|BaseLanguageModel|Runnable-conversationChain_0-conversationChain_0-input-model-BaseChatModel"
+    },
+    {
+      "source": "conversationChain_0",
+      "sourceHandle": "conversationChain_0-output-conversationChain-ConversationChain|LLMChain|BaseChain|Runnable",
+      "target": "chainTool_3",
+      "targetHandle": "chainTool_3-input-baseChain-BaseChain",
+      "type": "buttonedge",
+      "id": "conversationChain_0-conversationChain_0-output-conversationChain-ConversationChain|LLMChain|BaseChain|Runnable-chainTool_3-chainTool_3-input-baseChain-BaseChain"
+    },
+    {
+      "source": "chatPromptTemplate_3",
+      "sourceHandle": "chatPromptTemplate_3-output-chatPromptTemplate-ChatPromptTemplate|BaseChatPromptTemplate|BasePromptTemplate|Runnable",
+      "target": "conversationChain_1",
+      "targetHandle": "conversationChain_1-input-chatPromptTemplate-ChatPromptTemplate",
+      "type": "buttonedge",
+      "id": "chatPromptTemplate_3-chatPromptTemplate_3-output-chatPromptTemplate-ChatPromptTemplate|BaseChatPromptTemplate|BasePromptTemplate|Runnable-conversationChain_1-conversationChain_1-input-chatPromptTemplate-ChatPromptTemplate"
+    },
+    {
+      "source": "chatPromptTemplate_2",
+      "sourceHandle": "chatPromptTemplate_2-output-chatPromptTemplate-ChatPromptTemplate|BaseChatPromptTemplate|BasePromptTemplate|Runnable",
+      "target": "conversationChain_0",
+      "targetHandle": "conversationChain_0-input-chatPromptTemplate-ChatPromptTemplate",
+      "type": "buttonedge",
+      "id": "chatPromptTemplate_2-chatPromptTemplate_2-output-chatPromptTemplate-ChatPromptTemplate|BaseChatPromptTemplate|BasePromptTemplate|Runnable-conversationChain_0-conversationChain_0-input-chatPromptTemplate-ChatPromptTemplate"
+    }
+  ]
+}
