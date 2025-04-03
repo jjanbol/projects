@@ -18,10 +18,8 @@ nltk.download("punkt_tab")
 
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./key.json"
-os.environ["GROQ_API_KEY"] = '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'
+os.environ["GROQ_API_KEY"] = ''
 
-PROJECT_ID = "nih-cl-cm500-chenhonl-3a5d" 
-REGION = "us-central1"
 
 vertexai.init(project=PROJECT_ID, location=REGION)
 
