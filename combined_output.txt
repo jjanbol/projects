@@ -1,0 +1,218 @@
+// Contents of data/java/sorting/HeapSort.java
+
+package sams.steven.algorithms;
+
+/**
+ * Title:        HeapSort Algorithm
+ * Description:  An algorithm to sort an array of random values into ascending order
+ * Company:      DISC Brunel University
+ * @author       Steven Sams
+ * @version 1.0
+ */
+
+public class HeapSort
+{
+    public static void heap(int[] a, int i, int heapLimit) {
+        //restore heap properties
+        int parentIndex = i;          // assign the parent location
+        int leftChild = 2 * i + 1;   // assign the left child of the parent
+        int parentValue = a[i];     // store the parent's value
+
+        if (leftChild < heapLimit && a[leftChild+1] < a[leftChild])
+            leftChild++;
+
+        while (leftChild <= heapLimit && a[leftChild] < parentValue) {
+            a[parentIndex] = a[leftChild];     // assign value of child to parent
+            parentIndex = leftChild;          // switch parent and child locations
+            leftChild = 2 * leftChild + 1;   // next child
+
+            if (leftChild < heapLimit && a[leftChild + 1] < a[leftChild])
+                leftChild++;
+        }
+        a[parentIndex] = parentValue; // assign the correct value to the parent
+    }
+
+    public static void makeHeap(int[] a) {
+        for(int i = a.length / 2 - 1; i >= 0; i--) // start from the last parent and work up
+            heap(a, i,a.length-1);		  // restore the heap properties
+    }
+
+    public static int getMin(int[] a, int heapLimit) {
+        int min = a[0];	      // copy the value the root (smallest) value
+        a[0] = a[heapLimit]; // insert the last element into the root position
+        heap(a,0,heapLimit - 1); //restore the heap properties
+        return min; 	   // return the smallest value
+    }
+
+    public static void heapsort(int[] a) {
+        // construct the heap
+        makeHeap(a);
+        for(int heapLimit = a.length - 1; heapLimit > 0; heapLimit--)
+            a[heapLimit] = getMin(a, heapLimit); //take out the root and replace with the last element in the array
+    }
+}
+
+================================================================================
+
+// Contents of data/java/sorting/QuickSort.java
+
+package sams.steven.algorithms;
+
+/**
+ * Title:        QuickSort Algorithm
+ * Description:  A Divide and Conquer algorithm to sort an array of random values into ascending order
+ * Company:      DISC Brunel University
+ * @author       Steven Sams
+ * @version 1.0
+ */
+
+public class QuickSort
+{
+    private static int quick(int a[], int start, int end) {
+        int pivotValue = a[start]; 	 // assign pivot value to the first value in the array
+        int pivot = start;		    //assign the pivot point as the first element of the array
+
+        //scan the array
+        for (int i = start + 1; i <= end; i++) {
+            if (a[i] < pivotValue) {
+                //when value at a[i] is < the pivot value increment pivot point
+                pivot++;
+                sort(a,pivot,i); //move the pivot point along
+            }
+        }
+
+        sort(a, start, pivot);  //swap pivot value into correct location
+        return pivot;          //return pivot point to the quicksort method
+    }
+
+    private static void quickSort ( int a[], int start, int end) {
+        if(start < end) {
+            int pivot = quick(a, start, end);  // assign new pivot value from quick method
+            quickSort(a, start, pivot-1);     // recursive call on array containing elements < the pivot point
+            quickSort(a, pivot+1, end);      // recursive call on array containing elements > the pivot point
+        }
+    }
+
+    private static void sort(int a[],int start,int pivot) {
+        int temp;
+        temp = a[start];
+        a[start] = a[pivot];
+        a[pivot] = temp;
+    }
+}
+
+================================================================================
+
+// Contents of data/java/sorting/MergeSort.java
+
+package sams.steven.algorithms;
+
+/**
+ * Title:        Merge Sort Algorithm
+ * Description:  A Divide and Conquer algorithm to sort an array of random values into ascending order
+ * Company:      DISC Brunel University
+ * @author       Steven Sams
+ * @version 1.0
+ */
+
+public class MergeSort
+{
+    private static void merge(int[] a, int start, int mid, int end) {
+
+        // size of the array be merged
+        int n = end - start + 1;
+        // intermediate storing array
+        int[] temp = new int[n];
+        // first element in the left sub array
+        int left = start;
+        // next element in the right sub array
+        int right = mid + 1;
+        // next position in temp
+        int j = 0;
+
+        /* Move the smaller element from left or right into temp while left and right have elements
+        left to compare, continue while the left and right sub arrays have elements remaining */
+        while (left <= mid && right <= end) {
+            if (a[left] < a[right]) {   //when left sub array element is smaller than the corresponding right sub array element
+                temp[j] = a[left];      //copy left sub array element into its correct position in temp array
+                left++;		            //increment left sub array to the next element to be checked
+            } else {                    //when right sub array element is smaller than the corresponding left sub array element
+                temp[j] = a[right];
+                right++;
+            }
+            j++;
+        }
+
+        /* The proceeding two while loops are mutually exclusive
+        copy any remaining entries of the left sub array */
+        while (left <= mid) {
+            temp[j] = a[left];
+            left++;
+            j++;
+        }
+
+        // copy any remaining entries of the right sub array
+        while (right <= end) {
+            temp[j] = a[right];
+            right++;
+            j++;
+        }
+
+        // copy from the temp array
+        for (j = 0; j < n; j++)
+            a[start + j] = temp[j];
+    }
+
+    private static void sort(int[] a, int start, int end) {
+        if (start == end) 	// the direct solution, list has 1 element and is therefore sorted
+            return;     	// return to caller
+
+        int mid = (start + end) / 2;    // find the centre element of the array
+        sort(a, start, mid);            // recursively split the array down
+        sort(a, mid + 1, end);    // along its centre element
+        merge(a, start, mid, end);      // sub array recursively sorted up
+    }
+}
+
+================================================================================
+
+// Contents of data/java/sorting/SelectionSort.java
+
+package sams.steven.algorithms;
+
+/**
+ * Title:        Selection Sort Algorithm
+ * Description:  An algorithm to sort an array of random values into ascending order
+ * Company:      DISC Brunel University
+ * @author       Steven Sams
+ * @version 1.0
+ */
+
+public class SelectionSort
+{
+    private static int[] SelectionSort(int[] a) {
+
+        int temp;
+        for (int i = 0; i < a.length; i++) {
+
+            /* Assume that the first or next
+            index contains the smallest value */
+            int min = i;
+
+            for (int j = i + 1; j < a.length; j++) {
+                if (a[min] >= a[j]) {
+                    /* Replace the index of the minimum
+                    value if a smaller value is found */
+                    min = j;
+                }
+            }
+            temp = a[i];    //Copy the current index of a into temp
+            a[i] = a[min];  //Copy the smaller value into the current index of a
+            a[min] = temp;  //Copy the temp value into the previous location of the smaller element
+        }
+        return a;
+    }
+}
+
+================================================================================
+

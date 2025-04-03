@@ -1,0 +1,10 @@
+google-cloud-aiplatform
+langchain
+langchain-core
+langchain-google-vertexai
+langchain-community
+streamlit
+wikipedia
+nltk
+wikipedia-api
+chromadb
