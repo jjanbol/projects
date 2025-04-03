@@ -1,17 +1,11 @@
-# TEAM MEMBERS: CHENHONG LIANG, JANBOL JANGABYL
-
-# Code walkthrough and demo
-better to download the video for a clear view of the code in the video
-[DEMO and CODE explanation video](https://cmu.app.box.com/s/dzca2tekeiuja6dwxqjxqtjrikqhy8mx)
-
-## 1. Comparison of Our Code asssistant vs Github CoPilot
-Given the same query to our Code Generation Assistant LLM application and GitHub Copilot, notable differences in their responses can be observed. Below, we analyze these differences using screenshots and explanations.
+## 1. Comparison of Code asssistant vs Github CoPilot
+Given the same query to Code Generation Assistant LLM application and GitHub Copilot, notable differences in their responses can be observed. Below, these differences are analyzed using screenshots and explanations.
 _____________________________________________________________________________________________________________________
 << SCREENSHOT 1 >>
 
 ![screenshot1](code_assistant_1.png)
 _____________________________________________________________________________________________________________________
-Our Code Assistant utilizes the Gemini-1.5-Pro model to generate example code relevant to the given query. The output is structured to include clear and detailed explanations alongside the code, ensuring that users not only receive a working implementation but also understand how it functions. In this case, the request was to implement matrix multiplication using MATLAB.
+Code Assistant utilizes the Gemini-1.5-Pro model to generate example code relevant to the given query. The output is structured to include clear and detailed explanations alongside the code, ensuring that users not only receive a working implementation but also understand how it functions. In this case, the request was to implement matrix multiplication using MATLAB.
 _____________________________________________________________________________________________________________________
 << SCREENSHOT 2 >>
 
@@ -23,7 +17,7 @@ ________________________________________________________________________________
 
 ![screenshot3](code_assistant_3.png)
 _____________________________________________________________________________________________________________________
-To further enrich the learning experience, our assistant retrieves additional reading materials from sources such as Wikipedia. These materials help users develop a broader conceptual understanding of the topic beyond just the implementation. This ensures that users not only know how to write the code but also grasp the underlying principles that govern the operation.
+To further enrich the learning experience, the assistant retrieves additional reading materials from sources such as Wikipedia. These materials help users develop a broader conceptual understanding of the topic beyond just the implementation. This ensures that users not only know how to write the code but also grasp the underlying principles that govern the operation.
 _____________________________________________________________________________________________________________________
 
 
@@ -48,7 +42,7 @@ Code Implementation: On the right-hand side, Copilot generates MATLAB code for m
 
 Conclusion
 
-Both our Code Assistant LLM application and GitHub Copilot serve valuable roles depending on the user's needs:
+Both Code Assistant LLM application and GitHub Copilot serve valuable roles depending on the user's needs:
 
 For users who prioritize programming support and want detailed explanations, code variations, and access to external learning materials, our LLM application is the better choice.
 
@@ -80,7 +74,7 @@ ________________________________________________________________________________
 ![screenshot7](llama_vs_gemini_3.png)
 _____________________________________________________________________________________________________________________
 
-Lastly, we compare the Wikipedia agent that is supported by the LLM models. Interestingly, the Llama version seemed to perform better in choosing more related Wikipedia pages to the queries and the language. In comparison, Gemini focuses more on general concepts about the mathematical background and scientific computing. This is considering that both used the prompt template. 
+Lastly, comparison of the Wikipedia agent that is supported by the LLM models. Interestingly, the Llama version seemed to perform better in choosing more related Wikipedia pages to the queries and the language. In comparison, Gemini focuses more on general concepts about the mathematical background and scientific computing. This is considering that both used the prompt template. 
 
 _____________________________________________________________________________________________________________________
 Conclusion
@@ -102,7 +96,7 @@ ________________________________________________________________________________
 # 4. FlowiseAI explanation
 _____________________________________________________________________________________________________________________
 
-1. The structure of our flowise AI which is corresponding to the code:
+1. The structure of flowise AI which is corresponding to the code:
 Data Flow Architecture
 
 User Input (user_query, selected_language, selected_domain)\
@@ -120,7 +114,7 @@ chroma db, main part, wiki agent
 ![screenshot8](./Flowise/overall%20structure.png)
 ---------------------------------------------------------------------------------------------------------------------
 2. the structure of Chroma DB
-we store our code as a vector store in Chorma DB, so using the Chorma DB as a tool,\
+The code is stored as a vector store in Chorma DB, so using the Chorma DB as a tool,\
 and connect the main part use chain tool. which perform the RAG work
 ![screenshot9](./Flowise/ChromaDB.png)
 ---------------------------------------------------------------------------------------------------------------------
